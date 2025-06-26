@@ -36,4 +36,9 @@ class Pegawai extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function faceEncoding()
+    {
+        return $this->hasOne(FaceEncoding::class, 'pegawai_id', 'id');
+    }
 }

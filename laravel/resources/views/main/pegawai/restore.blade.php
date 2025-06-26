@@ -47,7 +47,7 @@
                                     <button type="button" class="btn bg-info-subtle text-info btn-restore"
                                         data-id="{{ $data->id }}" data-nama="{{ $data->nama }}"
                                         data-url="{{ route('pegawai.restore', $data->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-custom-class="custom-tooltip" data-bs-placement="right"
+                                        data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                         data-bs-title="Restore">
                                         <iconify-icon icon="solar:refresh-bold-duotone" width="1em"
                                             height="1em"></iconify-icon>

@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 @endpush
 
-@section('page-title', 'Rule')
+@section('page-title', 'Aturan Kehadiran')
 
 @section('content')
     {{-- Success Alert --}}

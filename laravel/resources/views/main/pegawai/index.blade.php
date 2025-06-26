@@ -42,11 +42,18 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $data)
+                            @php
+                                $foto = $data->foto_profil;
+                                $profilePhoto = $foto
+                                    ? asset('storage/' . $foto)
+                                    : 'https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/profile/user-' .
+                                        mt_rand(1, 15) .
+                                        '.jpg';
+                            @endphp
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-6">
-                                        <img src="{{ asset('storage/' . $data->foto_profil) }}" width="45"
-                                            class="rounded-circle" />
+                                        <img src="{{ $profilePhoto }}" width="45" class="rounded-circle" />
                                         <h6 class="mb-0"> {{ $data->nama }} </h6>
                                     </div>
                                 </td>
@@ -65,7 +72,7 @@
                                         data-status="{{ $data->user->is_active ? 'disable' : 'activate' }}"
                                         data-url="{{ route('pegawai.toggleStatus', $data->user->id) }}"
                                         data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                                        data-bs-placement="right"
+                                        data-bs-placement="top"
                                         data-bs-title="{{ $data->user->is_active ? 'Disable User' : 'Aktifkan User' }}">
 
                                         <iconify-icon
@@ -76,7 +83,7 @@
 
                                     <a href="{{ route('pegawai.edit', $data->id) }}">
                                         <button class="btn btn-outline-success" data-bs-toggle="tooltip"
-                                            data-bs-custom-class="custom-tooltip" data-bs-placement="right"
+                                            data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                             data-bs-title="Edit">
                                             <iconify-icon icon="solar:clapperboard-edit-linear" width="1em"
                                                 height="1em"></iconify-icon>
@@ -86,7 +93,7 @@
                                     <button type="button" class="btn bg-danger-subtle text-danger btn-delete"
                                         data-id="{{ $data->id }}" data-nama="{{ $data->nama }}"
                                         data-url="{{ route('pegawai.destroy', $data->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-placement="right" data-bs-title="Hapus Pegawai">
+                                        data-bs-placement="top" data-bs-title="Hapus Pegawai">
                                         <iconify-icon icon="solar:trash-bin-trash-bold-duotone" width="1em"
                                             height="1em"></iconify-icon>
                                     </button>

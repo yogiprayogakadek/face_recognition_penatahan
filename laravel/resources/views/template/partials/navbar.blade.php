@@ -160,8 +160,18 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
                         <div class="d-flex align-items-center gap-2 lh-base">
-                            <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/profile/user-1.jpg"
-                                class="rounded-circle" width="35" height="35" alt="matdash-img" />
+                            @php
+                                $foto = auth()->user()->pegawai->foto_profil;
+                                $profilePhoto = $foto
+                                    ? asset('storage/' . $foto)
+                                    : 'https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/profile/user-' .
+                                        mt_rand(1, 15) .
+                                        '.jpg';
+                            @endphp
+
+                            <img src="{{ $profilePhoto }}" class="rounded-circle" width="35" height="35"
+                                alt="Foto Profil" />
+
                             <iconify-icon icon="solar:alt-arrow-down-bold" class="fs-2"></iconify-icon>
                         </div>
                     </a>
@@ -169,13 +179,13 @@
                         aria-labelledby="drop1">
                         <div class="position-relative px-4 pt-3 pb-2">
                             <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
-                                <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/profile/user-1.jpg"
-                                    class="rounded-circle" width="56" height="56" alt="matdash-img" />
+                                <img src="{{ $profilePhoto }}" class="rounded-circle" width="56" height="56"
+                                    alt="matdash-img" />
                                 <div>
-                                    <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span>
-                                    </h5>
+                                    {{-- <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5> --}}
+                                    <h5 class="mb-0 fs-12">{{ auth()->user()->pegawai->nama }}</h5>
                                     <p class="mb-0 text-dark">
-                                        david@wrappixel.com
+                                        {{ auth()->user()->email }}
                                     </p>
                                 </div>
                             </div>
@@ -183,7 +193,7 @@
                                 <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">
                                     My Profile
                                 </a>
-                                <a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">
+                                <a href="{{ route('logout') }}" class="p-2 dropdown-item h6 rounded-1">
                                     Sign Out
                                 </a>
                             </div>

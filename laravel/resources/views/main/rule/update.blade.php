@@ -1,6 +1,6 @@
 @extends('template.master')
 
-@section('page-title', 'Rule')
+@section('page-title', 'Aturan Kehadiran')
 
 @section('content')
 

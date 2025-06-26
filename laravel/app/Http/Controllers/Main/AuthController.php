@@ -17,18 +17,31 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+
+            $user = auth()->user();
+
+            if (!$user->is_active) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return redirect('/login')
+                    ->with('error', 'Akun Anda non-aktif. Silakan hubungi admin untuk informasi lebih lanjut.');
+            }
+
+            return redirect()->intended('/dashboard')
+                ->with('success', 'Selamat datang, <strong>' . $user->pegawai->nama . '</strong>! Gunakan sistem dengan bijak.');
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah'
-        ]);
+        return back()->with('error', 'Email atau password salah.');
     }
+
+
 
     public function logout(Request $request)
     {

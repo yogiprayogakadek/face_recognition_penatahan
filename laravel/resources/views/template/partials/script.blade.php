@@ -14,8 +14,17 @@
 
 <!-- highlight.js (code view) -->
 <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/js/highlights/highlight.min.js"></script>
+<script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/js/plugins/toastr-init.js"></script>
 
 @stack('script')
+
+@if (session('success'))
+    <script>
+        toastr.info("{!! session('success') !!}", "Login Berhasil", {
+            closeButton: true,
+        });
+    </script>
+@endif
 
 <script>
     hljs.initHighlightingOnLoad();

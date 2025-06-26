@@ -1,6 +1,6 @@
 @extends('template.master')
 
-@section('page-title', 'Pegawai')
+@section('page-title', 'Aturan Kehadiran')
 
 @push('css')
     <link rel="stylesheet"
@@ -42,7 +42,7 @@
                                     <button type="button" class="btn bg-info-subtle text-info btn-restore"
                                         data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
                                         data-url="{{ route('rule.restore', $data->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-custom-class="custom-tooltip" data-bs-placement="right"
+                                        data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                         data-bs-title="Restore">
                                         <iconify-icon icon="solar:refresh-bold-duotone" width="1em"
                                             height="1em"></iconify-icon>

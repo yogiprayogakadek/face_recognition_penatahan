@@ -50,7 +50,7 @@
                                         data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
                                         data-status="{{ $data->is_active ? 'disable' : 'activate' }}"
                                         data-url="{{ route('rule.toggleStatus', $data->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-custom-class="custom-tooltip" data-bs-placement="right"
+                                        data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                         data-bs-title="{{ $data->is_active ? 'Disable Rule' : 'Aktifkan Rule' }}">
 
                                         <iconify-icon
@@ -61,7 +61,7 @@
 
                                     <a href="{{ route('rule.edit', $data->id) }}">
                                         <button class="btn btn-outline-success" data-bs-toggle="tooltip"
-                                            data-bs-custom-class="custom-tooltip" data-bs-placement="right"
+                                            data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                             data-bs-title="Edit">
                                             <iconify-icon icon="solar:clapperboard-edit-linear" width="1em"
                                                 height="1em"></iconify-icon>
@@ -71,7 +71,7 @@
                                     <button type="button" class="btn bg-danger-subtle text-danger btn-delete"
                                         data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
                                         data-url="{{ route('rule.destroy', $data->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-placement="right" data-bs-title="Hapus Rule">
+                                        data-bs-placement="top" data-bs-title="Hapus Rule">
                                         <iconify-icon icon="solar:trash-bin-trash-bold-duotone" width="1em"
                                             height="1em"></iconify-icon>
                                     </button>

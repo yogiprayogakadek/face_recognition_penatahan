@@ -1,0 +1,6 @@
+flask 
+face_recognition 
+numpy 
+pillow 
+flask_cors
+python-dotenv
