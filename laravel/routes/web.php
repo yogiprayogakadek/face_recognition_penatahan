@@ -3,9 +3,16 @@
 use App\Http\Controllers\Main\AuthController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\FaceEncodingController;
+use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Main\PegawaiController;
 use App\Http\Controllers\Main\RuleController;
 use Illuminate\Support\Facades\Route;
+
+// MAIN PRESENCE
+Route::controller(MainController::class)->group(function () {
+    Route::get('/', 'showAbsensiPage');
+    Route::post('/verify', 'verifyFace')->name('face.verify');
+});
 
 // AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -18,7 +25,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth')->group(function () {
     // DASHBOARD
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('/', 'index')->name('dashboard');
+        // Route::get('/', 'index')->name('dashboard');
         Route::get('/dashboard', 'index')->name('dashboard');
     });
 
@@ -70,7 +77,6 @@ Route::middleware('auth')->group(function () {
 
             // NEW
             Route::post('/register', 'registerFace')->name('register');
-            Route::post('/verify', 'verifyFace')->name('verify');
 
             // PEGAWAI
             // Route::get('/create', 'create')->name('create');

@@ -27,21 +27,22 @@
                         <span class="sidebar-divider lg"></span>
                     </li> --}}
 
+                    @can('access-admin-menu')
+                        <li class="mini-nav-item" id="mini-2">
+                            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                                data-bs-placement="right" data-bs-title="Pegawai">
+                                <iconify-icon icon="solar:user-hands-outline" class="fs-7"></iconify-icon>
+                            </a>
+                        </li>
+                        <li class="mini-nav-item" id="mini-3">
+                            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                                data-bs-placement="right" data-bs-title="Aturan Kehadiran">
+                                <iconify-icon icon="solar:settings-linear" class="fs-7"></iconify-icon>
+                            </a>
+                        </li>
+                    @endcan
+
                     <li class="mini-nav-item" id="mini-1">
-                        <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                            data-bs-placement="right" data-bs-title="Pegawai">
-                            <iconify-icon icon="solar:user-hands-outline" class="fs-7"></iconify-icon>
-                        </a>
-                    </li>
-
-                    <li class="mini-nav-item" id="mini-2">
-                        <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                            data-bs-placement="right" data-bs-title="Aturan Kehadiran">
-                            <iconify-icon icon="solar:settings-linear" class="fs-7"></iconify-icon>
-                        </a>
-                    </li>
-
-                    <li class="mini-nav-item" id="mini-3">
                         <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
                             data-bs-placement="right" data-bs-title="Face Encoding">
                             <iconify-icon icon="solar:face-scan-square-bold" class="fs-7"></iconify-icon>
@@ -58,86 +59,88 @@
                     </a>
 
                 </div>
-                <!-- ---------------------------------- -->
-                <!-- Pegawai -->
-                <!-- ---------------------------------- -->
-                <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-                    <ul class="sidebar-menu" id="sidebarnav">
-                        <!-- ---------------------------------- -->
-                        <!-- Pegawai -->
-                        <!-- ---------------------------------- -->
-                        <li class="nav-small-cap">
-                            <span class="hide-menu">Pegawai</span>
-                        </li>
-                        <!-- ---------------------------------- -->
-                        <!-- Pegawai -->
-                        <!-- ---------------------------------- -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" id="list-pegawai" href="{{ route('pegawai.index') }}"
-                                aria-expanded="false">
-                                <iconify-icon icon="solar:user-id-linear"></iconify-icon>
-                                <span class="hide-menu">List Pegawai</span>
-                            </a>
-                        </li>
+                @can('access-admin-menu')
+                    <!-- ---------------------------------- -->
+                    <!-- Pegawai -->
+                    <!-- ---------------------------------- -->
+                    <nav class="sidebar-nav" id="menu-right-mini-2" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <!-- ---------------------------------- -->
+                            <!-- Pegawai -->
+                            <!-- ---------------------------------- -->
+                            <li class="nav-small-cap">
+                                <span class="hide-menu">Pegawai</span>
+                            </li>
+                            <!-- ---------------------------------- -->
+                            <!-- Pegawai -->
+                            <!-- ---------------------------------- -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="list-pegawai" href="{{ route('pegawai.index') }}"
+                                    aria-expanded="false">
+                                    <iconify-icon icon="solar:user-id-linear"></iconify-icon>
+                                    <span class="hide-menu">List Pegawai</span>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('pegawai.create') }}" aria-expanded="false">
-                                <iconify-icon icon="solar:user-plus-broken"></iconify-icon>
-                                <span class="hide-menu">Tambah Pegawai</span>
-                            </a>
-                        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('pegawai.create') }}" aria-expanded="false">
+                                    <iconify-icon icon="solar:user-plus-broken"></iconify-icon>
+                                    <span class="hide-menu">Tambah Pegawai</span>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('pegawai.showRestore') }}" aria-expanded="false">
-                                <iconify-icon icon="solar:refresh-bold-duotone"></iconify-icon>
-                                <span class="hide-menu">Restore Pegawai</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('pegawai.showRestore') }}" aria-expanded="false">
+                                    <iconify-icon icon="solar:refresh-bold-duotone"></iconify-icon>
+                                    <span class="hide-menu">Restore Pegawai</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- ---------------------------------- -->
+                    <!-- Rules -->
+                    <!-- ---------------------------------- -->
+                    <nav class="sidebar-nav" id="menu-right-mini-3" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <!-- ---------------------------------- -->
+                            <!-- Rules -->
+                            <!-- ---------------------------------- -->
+                            <li class="nav-small-cap">
+                                <span class="hide-menu">Rules</span>
+                            </li>
+                            <!-- ---------------------------------- -->
+                            <!-- Rules -->
+                            <!-- ---------------------------------- -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="list-rule" href="{{ route('rule.index') }}"
+                                    aria-expanded="false">
+                                    <iconify-icon icon="solar:settings-bold"></iconify-icon>
+                                    <span class="hide-menu">List Rule</span>
+                                </a>
+                            </li>
 
-                <!-- ---------------------------------- -->
-                <!-- Rules -->
-                <!-- ---------------------------------- -->
-                <nav class="sidebar-nav" id="menu-right-mini-2" data-simplebar>
-                    <ul class="sidebar-menu" id="sidebarnav">
-                        <!-- ---------------------------------- -->
-                        <!-- Rules -->
-                        <!-- ---------------------------------- -->
-                        <li class="nav-small-cap">
-                            <span class="hide-menu">Rules</span>
-                        </li>
-                        <!-- ---------------------------------- -->
-                        <!-- Rules -->
-                        <!-- ---------------------------------- -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" id="list-rule" href="{{ route('rule.index') }}"
-                                aria-expanded="false">
-                                <iconify-icon icon="solar:settings-bold"></iconify-icon>
-                                <span class="hide-menu">List Rule</span>
-                            </a>
-                        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('rule.create') }}" aria-expanded="false">
+                                    <iconify-icon icon="solar:add-circle-bold"></iconify-icon>
+                                    <span class="hide-menu">Tambah Rule</span>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('rule.create') }}" aria-expanded="false">
-                                <iconify-icon icon="solar:add-circle-bold"></iconify-icon>
-                                <span class="hide-menu">Tambah Rule</span>
-                            </a>
-                        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('rule.showRestore') }}" aria-expanded="false">
+                                    <iconify-icon icon="solar:refresh-bold-duotone"></iconify-icon>
+                                    <span class="hide-menu">Restore Rule</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endcan
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('rule.showRestore') }}" aria-expanded="false">
-                                <iconify-icon icon="solar:refresh-bold-duotone"></iconify-icon>
-                                <span class="hide-menu">Restore Rule</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
 
                 <!-- ---------------------------------- -->
                 <!-- Face Encoding -->
                 <!-- ---------------------------------- -->
-                <nav class="sidebar-nav" id="menu-right-mini-3" data-simplebar>
+                <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
                     <ul class="sidebar-menu" id="sidebarnav">
                         <!-- ---------------------------------- -->
                         <!-- Face Encoding -->
@@ -148,13 +151,15 @@
                         <!-- ---------------------------------- -->
                         <!-- Face Encoding -->
                         <!-- ---------------------------------- -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" id="list-face" href="{{ route('face.index') }}"
-                                aria-expanded="false">
-                                <iconify-icon icon="solar:face-scan-square-broken"></iconify-icon>
-                                <span class="hide-menu">List Face Encoding</span>
-                            </a>
-                        </li>
+                        @can('access-admin-menu')
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="list-face" href="{{ route('face.index') }}"
+                                    aria-expanded="false">
+                                    <iconify-icon icon="solar:face-scan-square-broken"></iconify-icon>
+                                    <span class="hide-menu">List Face Encoding</span>
+                                </a>
+                            </li>
+                        @endcan
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" id="create-face"

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->references('id')->on('pegawai')->onDelete('cascade');
             $table->foreignId('aturan_kehadiran_id')->constrained()->references('id')->on('aturan_kehadiran')->onDelete('restrict');
             $table->timestamp('checked_in_at')->comment('waktu absensi');
+            $table->string('tipe', 10);
             $table->boolean('is_late');
             $table->timestamps();
         });

@@ -38,6 +38,9 @@ class FaceEncodingController extends Controller
     public function create($id)
     {
         $pegawai = Pegawai::findOrFail($id);
+
+        $this->authorize('manageFaceEncoding', $pegawai);
+
         $view = auth()->user()->role === 'admin'
             ? 'main.face_encoding.create'
             : 'main.face_encoding.pegawai.create';
@@ -192,95 +195,95 @@ class FaceEncodingController extends Controller
     }
 
 
-    public function verifyFace(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image'
-        ]);
+    // public function verifyFace(Request $request)
+    // {
+    //     $request->validate([
+    //         'image' => 'required|image'
+    //     ]);
 
-        $encodings = FaceEncoding::all()->map(function ($item) {
-            return [
-                'pegawai_id' => $item->pegawai_id,
-                'encoding' => $item->encodings
-            ];
-        })->toArray();
+    //     $encodings = FaceEncoding::all()->map(function ($item) {
+    //         return [
+    //             'pegawai_id' => $item->pegawai_id,
+    //             'encoding' => $item->encodings
+    //         ];
+    //     })->toArray();
 
-        $response = Http::asMultipart()
-            ->attach('image', fopen($request->file('image')->getRealPath(), 'r'), 'input.jpg')
-            ->attach('known_encodings', json_encode($encodings))
-            ->timeout(10)
-            ->post($this->pythonApiURL . 'verify_face');
+    //     $response = Http::asMultipart()
+    //         ->attach('image', fopen($request->file('image')->getRealPath(), 'r'), 'input.jpg')
+    //         ->attach('known_encodings', json_encode($encodings))
+    //         ->timeout(10)
+    //         ->post($this->pythonApiURL . '/verify_face');
 
-        if (!$response->successful()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Gagal koneksi ke server Python',
-                'data' => $response->body()
-            ], 500);
-        }
+    //     if (!$response->successful()) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Gagal koneksi ke server Python',
+    //             'data' => $response->body()
+    //         ], 500);
+    //     }
 
-        $data = $response->json();
+    //     $data = $response->json();
 
-        if (!$data['matched']) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Wajah tidak dikenali.'
-            ]);
-        }
+    //     if (!$data['matched']) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Wajah tidak dikenali.'
+    //         ]);
+    //     }
 
-        $now = now()->setTimezone('Asia/Makassar');
-        $nowTime = $now->format('H:i:s');
+    //     $now = now()->setTimezone('Asia/Makassar');
+    //     $nowTime = $now->format('H:i:s');
 
-        // CARI RULE YANG SESUAI JAM SEKARANG
-        $rule = Rule::where('start_time', '<=', $nowTime)
-            ->where('end_time', '>=', $nowTime)
-            ->first();
+    //     // CARI RULE YANG SESUAI JAM SEKARANG
+    //     $rule = Rule::where('start_time', '<=', $nowTime)
+    //         ->where('end_time', '>=', $nowTime)
+    //         ->first();
 
-        if (!$rule) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Kamu tidak bisa absen di luar jam yang ditentukan.'
-            ]);
-        }
+    //     if (!$rule) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Kamu tidak bisa absen di luar jam yang ditentukan.'
+    //         ]);
+    //     }
 
-        $type = $rule->type; // 'masuk' atau 'pulang'
-        $today = $now->copy()->startOfDay();
+    //     $tipe = $rule->tipe; // 'masuk' atau 'pulang'
+    //     $today = $now->copy()->startOfDay();
 
-        // CEK APAKAH SUDAH ABSEN JENIS YANG SAMA HARI INI
-        $already = Kehadiran::where('pegawai_id', $data['pegawai_id'])
-            ->where('type', $type)
-            ->where('checked_in_at', '>=', $today)
-            ->exists();
+    //     // CEK APAKAH SUDAH ABSEN JENIS YANG SAMA HARI INI
+    //     $already = Kehadiran::where('pegawai_id', $data['pegawai_id'])
+    //         ->where('tipe', $tipe)
+    //         ->where('checked_in_at', '>=', $today)
+    //         ->exists();
 
-        if ($already) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Kamu sudah absen ' . $type . ' hari ini.'
-            ]);
-        }
+    //     if ($already) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Kamu sudah absen ' . $tipe . ' hari ini.'
+    //         ]);
+    //     }
 
-        // CEK KETERLAMBATAN
-        $isLate = false;
-        if ($rule->late_after && $nowTime > $rule->late_after) {
-            $isLate = true;
-        }
+    //     // CEK KETERLAMBATAN
+    //     $isLate = false;
+    //     if ($rule->late_after && $nowTime > $rule->late_after) {
+    //         $isLate = true;
+    //     }
 
-        // CARI RULE YANG AKTIF
-        $activeRule = Rule::where('is_active', true)->first();
+    //     // CARI RULE YANG AKTIF
+    //     $activeRule = Rule::where('is_active', true)->first();
 
-        // SIMPAN ABSENSI
-        Kehadiran::create([
-            'pegawai_id' => $data['pegawai_id'],
-            'aturan_kehadiran_id' => $activeRule->id,
-            'type' => $type,
-            'checked_in_at' => $now,
-            'is_late' => $isLate
-        ]);
+    //     // SIMPAN ABSENSI
+    //     Kehadiran::create([
+    //         'pegawai_id' => $data['pegawai_id'],
+    //         'aturan_kehadiran_id' => $activeRule->id,
+    //         'tipe' => $tipe,
+    //         'checked_in_at' => $now,
+    //         'is_late' => $isLate
+    //     ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Absensi ' . $type . ' berhasil' . ($isLate ? ', namun kamu terlambat.' : '.'),
-            'late' => $isLate
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Absensi ' . $tipe . ' berhasil' . ($isLate ? ', namun kamu terlambat.' : '.'),
+    //         'late' => $isLate
+    //     ]);
+    // }
 }
