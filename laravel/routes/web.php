@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::put('/update/{id}', 'update')->name('update');
+            Route::put('/update/{role_group_id}', 'update')->name('update');
             Route::put('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
             Route::delete('/delete/{id}', 'destroy')->name('destroy');
             Route::get('/restore', 'showRestore')->name('showRestore');

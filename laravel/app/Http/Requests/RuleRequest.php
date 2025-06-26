@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
-class RuleStoreRequest extends FormRequest
+class RuleRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,11 +15,13 @@ class RuleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // === Rule Absen Masuk ===
             'rules.masuk.tipe' => 'required|in:masuk',
             'rules.masuk.start_time' => 'required|date_format:H:i',
             'rules.masuk.end_time' => 'required|date_format:H:i|after:rules.masuk.start_time',
             'rules.masuk.late_after' => 'required|date_format:H:i|after_or_equal:rules.masuk.start_time|before_or_equal:rules.masuk.end_time',
 
+            // === Rule Absen Pulang ===
             'rules.pulang.tipe' => 'required|in:pulang',
             'rules.pulang.start_time' => [
                 'required',
@@ -69,7 +71,6 @@ class RuleStoreRequest extends FormRequest
         ];
     }
 
-
     public function messages(): array
     {
         return [
@@ -90,7 +91,6 @@ class RuleStoreRequest extends FormRequest
         ];
     }
 
-    // Optional: validasi tambahan via withValidator jika perlu logika kompleks
     public function withValidator(Validator $validator)
     {
         $validator->sometimes('end_time', 'required|date_format:H:i|after:start_time', function ($input) {

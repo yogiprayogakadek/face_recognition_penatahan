@@ -18,9 +18,9 @@
 
 @stack('script')
 
-@if (session('success'))
+@if (session('loginSuccess'))
     <script>
-        toastr.info("{!! session('success') !!}", "Login Berhasil", {
+        toastr.info("{!! session('loginSuccess') !!}", "Login Berhasil", {
             closeButton: true,
         });
     </script>

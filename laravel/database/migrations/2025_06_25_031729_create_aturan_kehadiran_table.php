@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('tipe', ['masuk', 'pulang']);
             $table->time('start_time');
-            $table->time('end_time');
+            $table->time('end_time')->nullable();
             $table->time('late_after')->nullable()->comment('waktu yang dianggap telat');
             $table->boolean('is_active')->default(true);
             $table->timestamps();

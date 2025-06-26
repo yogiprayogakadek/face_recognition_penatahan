@@ -46,88 +46,198 @@
         </div>
     </div>
 
-    <form action="{{ route('rule.store') }}" enctype="multipart/form-data" method="POST">
-        @csrf
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title fw-semibold mb-4">Tambah Rule</h5>
-
-                <div class="row pt-3">
-                    {{-- Tipe --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Tipe</label>
-                            <select name="tipe" id="tipe" class="form-control @error('tipe') is-invalid @enderror">
-                                <option value="">-- Pilih Tipe --</option>
-                                <option value="masuk" {{ old('tipe') == 'masuk' ? 'selected' : '' }}>Masuk</option>
-                                <option value="pulang" {{ old('tipe') == 'pulang' ? 'selected' : '' }}>Pulang</option>
-                            </select>
-                            @error('tipe')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+    <div class="card">
+        <div class="card-body wizard-content">
+            <h4 class="card-title">Tambah Aturan Kehadiran</h4>
+            {{-- <p class="card-subtitle mb-3"> You can us the validation like what we did </p> --}}
+            <form action="{{ route('rule.store') }}" method="POST" class="validation-wizard wizard-circle mt-5">
+                @csrf
+                <!-- Step 1 -->
+                <h6>Absen Masuk</h6>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="tipe_masuk"> Tipe : <span class="danger">*</span>
+                                </label>
+                                <input type="text"
+                                    class="form-control required @error('tipe_masuk') is-invalid @enderror"
+                                    name="rules[masuk][tipe]" id="tipe_masuk" value="masuk" readonly />
+                                @error('tipe_masuk')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="start_time_masuk"> Start Time : <span class="danger">*</span>
+                                </label>
+                                <input type="time" id="start_time_masuk" name="rules[masuk][start_time]"
+                                    class="form-control required @error('start_time_masuk') is-invalid @enderror"
+                                    value="{{ old('start_time_masuk') }}">
+                                @error('start_time_masuk')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-
-                    {{-- Start Time --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="start_time" class="form-label">Start Time</label>
-                            <input type="time" id="start_time" name="start_time"
-                                class="form-control @error('start_time') is-invalid @enderror"
-                                value="{{ old('start_time') }}">
-                            @error('start_time')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="end_time_masuk"> End Time : <span class="danger">*</span>
+                                </label>
+                                <input type="time" id="end_time_masuk" name="rules[masuk][end_time]"
+                                    class="form-control required @error('end_time_masuk') is-invalid @enderror"
+                                    value="{{ old('end_time_masuk') }}">
+                                @error('end_time_masuk')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="late_after_masuk"> Batas keterlambatan : <span
+                                        class="danger">*</span>
+                                </label>
+                                <input type="time" id="late_after_masuk" name="rules[masuk][late_after]"
+                                    class="form-control required @error('late_after_masuk') is-invalid @enderror"
+                                    value="{{ old('late_after_masuk') }}">
+                                @error('late_after_masuk')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-
-                    {{-- End Time --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="end_time" class="form-label">End Time</label>
-                            <input type="time" id="end_time" name="end_time"
-                                class="form-control @error('end_time') is-invalid @enderror" value="{{ old('end_time') }}"
-                                disabled>
-                            @error('end_time')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                </section>
+                <!-- Step 2 -->
+                <h6>Absen Pulang</h6>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="tipe_pulang"> Tipe : <span class="danger">*</span>
+                                </label>
+                                <input type="text"
+                                    class="form-control required @error('tipe_pulang') is-invalid @enderror"
+                                    name="rules[pulang][tipe]" id="tipe_pulang" value="pulang" readonly />
+                                @error('tipe_pulang')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="start_time_pulang"> Start Time : <span
+                                        class="danger">*</span>
+                                </label>
+                                <input type="time" id="start_time_pulang" name="rules[pulang][start_time]"
+                                    class="form-control required @error('start_time_pulang') is-invalid @enderror"
+                                    value="{{ old('start_time_pulang') }}">
+                                @error('start_time_pulang')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-
-                    {{-- Late After --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="late_after" class="form-label">Late After</label>
-                            <input type="time" id="late_after" name="late_after"
-                                class="form-control @error('late_after') is-invalid @enderror"
-                                value="{{ old('late_after') }}" disabled>
-                            @error('late_after')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="end_time_pulang"> End Time : <span class="danger">*</span>
+                                </label>
+                                <input type="time" id="end_time_pulang" name="rules[pulang][end_time]"
+                                    class="form-control @error('end_time_pulang') is-invalid @enderror"
+                                    value="{{ old('end_time_pulang') }}">
+                                <label class="text-info small" style="">Boleh dikosongkan.</label>
+                                @error('end_time_pulang')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="late_after_pulang"> Batas keterlambatan : <span
+                                        class="danger">*</span>
+                                </label>
+                                <input type="time" id="late_after_pulang" name="rules[pulang][late_after]"
+                                    class="form-control @error('late_after_pulang') is-invalid @enderror"
+                                    value="{{ old('late_after_pulang') }}">
+                                <label class="text-info small" style="">Boleh dikosongkan.</label>
+                                @error('late_after_pulang')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <div class="card-body border-top">
-                    <button type="submit" class="btn btn-primary">
-                        Simpan
-                    </button>
-                    <button type="reset" class="btn btn-danger ms-3">
-                        Reset
-                    </button>
-                </div>
-            </div>
+                </section>
+            </form>
         </div>
-    </form>
+    </div>
+
 @endsection
 
 @push('script')
+    <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/libs/jquery-steps/build/jquery.steps.min.js">
+    </script>
+    <script
+        src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/libs/jquery-validation/dist/jquery.validate.min.js">
+    </script>
+    {{-- <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/js/forms/form-wizard.js"></script> --}}
+
+    <script>
+        var form = $(".validation-wizard").show();
+
+        $(".validation-wizard").steps({
+                headerTag: "h6",
+                bodyTag: "section",
+                transitionEffect: "fade",
+                titleTemplate: '<span class="step">#index#</span> #title#',
+                labels: {
+                    finish: "Simpan",
+                },
+                onStepChanging: function(event, currentIndex, newIndex) {
+                    return (
+                        currentIndex > newIndex ||
+                        (!(3 === newIndex && Number($("#age-2").val()) < 18) &&
+                            (currentIndex < newIndex &&
+                                (form.find(".body:eq(" + newIndex + ") label.error").remove(),
+                                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error")),
+                                (form.validate().settings.ignore = ":disabled,:hidden"),
+                                form.valid()))
+                    );
+                },
+                onFinishing: function(event, currentIndex) {
+                    return (form.validate().settings.ignore = ":disabled"), form.valid();
+                },
+                onFinished: function(event, currentIndex) {
+                    form.submit();
+                },
+            }),
+            $(".validation-wizard").validate({
+                ignore: "input[type=hidden]",
+                errorClass: "text-danger",
+                successClass: "text-success",
+                highlight: function(element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function(element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element);
+                },
+                rules: {
+                    email: {
+                        email: !0,
+                    },
+                },
+            });
+    </script>
+
     <script>
         $(document).ready(function() {
-            function timeToMinutes(time) {
-                const [hour, minute] = time.split(':').map(Number);
+            function timeToMinutes(timeStr) {
+                if (!timeStr) return null;
+                const [hour, minute] = timeStr.split(':').map(Number);
                 return hour * 60 + minute;
             }
 
@@ -141,58 +251,67 @@
                 $('#time_notification .message').text('');
             }
 
-            // Start Time Event
-            $('#start_time').on('change', function() {
-                const start = $(this).val();
+            // === VALIDASI PULANG ===
+            $('#start_time_pulang').on('change', function() {
+                const startMasuk = timeToMinutes($('#start_time_masuk').val());
+                const endMasuk = timeToMinutes($('#end_time_masuk').val());
+                const startPulang = timeToMinutes($(this).val());
 
-                if (start) {
-                    $('#end_time').prop('disabled', false);
-                } else {
-                    $('#end_time').prop('disabled', true).val('');
-                    $('#late_after').prop('disabled', true).val('');
-                    hideNotification();
-                }
-            });
-
-            // End Time Validation
-            $('#end_time').on('change', function() {
-                const start = $('#start_time').val();
-                const end = $(this).val();
-
-                if (!start) {
-                    showNotification('Harap isi Start Time terlebih dahulu.');
+                if (startMasuk == null || endMasuk == null) {
+                    showNotification('Isi dulu waktu absen masuk.');
                     $(this).val('');
                     return;
                 }
 
-                if (timeToMinutes(end) <= timeToMinutes(start)) {
-                    showNotification('End Time harus lebih besar dari Start Time.');
+                if (startPulang < startMasuk || startPulang < endMasuk) {
+                    showNotification('Start Time Pulang tidak boleh lebih awal dari waktu masuk.');
                     $(this).val('');
                     return;
                 }
 
-                $('#late_after').prop('disabled', false);
+                $('#end_time_pulang').prop('readonly', false);
                 hideNotification();
             });
 
-            // Late After Validation
-            $('#late_after').on('change', function() {
-                const start = $('#start_time').val();
-                const end = $('#end_time').val();
-                const late = $(this).val();
+            $('#end_time_pulang').on('change', function() {
+                const startMasuk = timeToMinutes($('#start_time_masuk').val());
+                const endMasuk = timeToMinutes($('#end_time_masuk').val());
+                const startPulang = timeToMinutes($('#start_time_pulang').val());
+                const endPulang = timeToMinutes($(this).val());
 
-                if (!start || !end) {
-                    showNotification('Isi Start Time dan End Time terlebih dahulu.');
+                if (startPulang == null) {
+                    showNotification('Isi Start Time Pulang terlebih dahulu.');
                     $(this).val('');
                     return;
                 }
 
-                const lateMinutes = timeToMinutes(late);
-                const startMinutes = timeToMinutes(start);
-                const endMinutes = timeToMinutes(end);
+                if (endPulang < startMasuk || endPulang < endMasuk || endPulang < startPulang) {
+                    showNotification(
+                        'End Time Pulang tidak boleh lebih awal dari waktu masuk dan start pulang.');
+                    $(this).val('');
+                    return;
+                }
 
-                if (lateMinutes <= startMinutes || lateMinutes >= endMinutes) {
-                    showNotification('Late After harus di antara Start Time dan End Time.');
+                $('#late_after_pulang').prop('readonly', false);
+                hideNotification();
+            });
+
+            $('#late_after_pulang').on('change', function() {
+                const startMasuk = timeToMinutes($('#start_time_masuk').val());
+                const endMasuk = timeToMinutes($('#end_time_masuk').val());
+                const startPulang = timeToMinutes($('#start_time_pulang').val());
+                const endPulang = timeToMinutes($('#end_time_pulang').val());
+                const lateAfterPulang = timeToMinutes($(this).val());
+
+                if (!startMasuk || !endMasuk || !startPulang || !endPulang) {
+                    showNotification('Isi semua waktu terlebih dahulu.');
+                    $(this).val('');
+                    return;
+                }
+
+                if (lateAfterPulang <= startMasuk || lateAfterPulang <= endMasuk ||
+                    lateAfterPulang <= startPulang || lateAfterPulang >= endPulang) {
+                    showNotification('Late After Pulang harus di antara waktu masuk dan waktu pulang.');
                     $(this).val('');
                     return;
                 }
@@ -200,15 +319,12 @@
                 hideNotification();
             });
 
-            // Initial Check on Load
-            const start = $('#start_time').val();
-            const end = $('#end_time').val();
-
-            if (!start) {
-                $('#end_time').prop('disabled', true);
-                $('#late_after').prop('disabled', true);
-            } else if (!end) {
-                $('#late_after').prop('disabled', true);
+            // Initial disable
+            if (!$('#start_time_pulang').val()) {
+                $('#end_time_pulang').prop('readonly', true);
+                $('#late_after_pulang').prop('readonly', true);
+            } else if (!$('#end_time_pulang').val()) {
+                $('#late_after_pulang').prop('readonly', true);
             }
         });
     </script>

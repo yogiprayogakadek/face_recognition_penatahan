@@ -28,38 +28,56 @@
                 <table id="table" class="table table-striped table-bordered text-nowrap align-middle">
                     <thead>
                         <tr>
-                            <th>Tipe</th>
+                            <th colspan="3" class="text-center">Absen Masuk</th>
+                            <th colspan="3" class="text-center">Absen Pulang</th>
+                            <th class="text-center align-content-center" rowspan="2">Status</th>
+                            <th class="text-center align-content-center" rowspan="2">Aksi</th>
+                        </tr>
+                        <tr>
                             <th>Start Time</th>
                             <th>End Time</th>
                             <th>Late After</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
+
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Late After</th>
+
+                            {{-- <th>Group ID</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $data)
+                        @forelse ($data as $item)
                             <tr>
-                                <td>{{ ucfirst($data->tipe) }}</td>
-                                <td>{{ $data->start_time }}</td>
-                                <td>{{ $data->end_time }}</td>
-                                <td>{{ $data->late_after }}</td>
-                                <td>{{ $data->is_active == true ? 'Aktif' : 'Non-aktif' }}</td>
-                                <td>
+                                {{-- MASUK --}}
+                                <td>{{ $item['masuk']?->start_time ?? '-' }}</td>
+                                <td>{{ $item['masuk']?->end_time ?? '-' }}</td>
+                                <td>{{ $item['masuk']?->late_after ?? '-' }}</td>
+
+                                {{-- PULANG --}}
+                                <td>{{ $item['pulang']?->start_time ?? '-' }}</td>
+                                <td>{{ $item['pulang']?->end_time ?? '-' }}</td>
+                                <td>{{ $item['pulang']?->late_after ?? '-' }}</td>
+
+                                {{-- STATUS --}}
+                                <td>{{ $item['status'] == true ? 'Aktif' : 'Non-aktif' }}</td>
+
+                                <td class="text-center">
                                     <button type="button"
-                                        class="btn {{ $data->is_active ? 'bg-primary-subtle text-primary' : 'bg-warning-subtle text-warning' }} btn-toggle-status"
-                                        data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
-                                        data-status="{{ $data->is_active ? 'disable' : 'activate' }}"
-                                        data-url="{{ route('rule.toggleStatus', $data->id) }}" data-bs-toggle="tooltip"
-                                        data-bs-custom-class="custom-tooltip" data-bs-placement="top"
-                                        data-bs-title="{{ $data->is_active ? 'Disable Rule' : 'Aktifkan Rule' }}">
+                                        class="btn {{ $item['masuk']?->is_active ? 'bg-primary-subtle text-primary' : 'bg-warning-subtle text-warning' }} btn-toggle-status"
+                                        data-id="{{ $item['group_id'] }}" data-tipe="{{ $item['masuk']?->tipe }}"
+                                        data-status="{{ $item['masuk']?->is_active ? 'disable' : 'activate' }}"
+                                        data-url="{{ route('rule.toggleStatus', $item['group_id']) }}"
+                                        data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                                        data-bs-placement="top"
+                                        data-bs-title="{{ $item['masuk']?->is_active ? 'Disable Rule' : 'Aktifkan Rule' }}">
 
                                         <iconify-icon
-                                            icon="{{ $data->is_active ? 'solar:bill-cross-bold-duotone' : 'solar:bill-check-bold-duotone' }}"
+                                            icon="{{ $item['masuk']?->is_active ? 'solar:bill-cross-bold-duotone' : 'solar:bill-check-bold-duotone' }}"
                                             width="1em" height="1em">
                                         </iconify-icon>
                                     </button>
 
-                                    <a href="{{ route('rule.edit', $data->id) }}">
+                                    <a href="{{ route('rule.edit', $item['group_id']) }}">
                                         <button class="btn btn-outline-success" data-bs-toggle="tooltip"
                                             data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                             data-bs-title="Edit">
@@ -69,19 +87,22 @@
                                     </a>
 
                                     <button type="button" class="btn bg-danger-subtle text-danger btn-delete"
-                                        data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
-                                        data-url="{{ route('rule.destroy', $data->id) }}" data-bs-toggle="tooltip"
+                                        data-id="{{ $item['group_id'] }}" data-tipe="{{ $item['masuk']?->tipe }}"
+                                        data-url="{{ route('rule.destroy', $item['group_id']) }}" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-title="Hapus Rule">
                                         <iconify-icon icon="solar:trash-bin-trash-bold-duotone" width="1em"
                                             height="1em"></iconify-icon>
                                     </button>
-
-
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Belum ada data.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
+
             </div>
 
         </div>
@@ -100,7 +121,7 @@
             e.preventDefault();
 
             const url = $(this).data('url');
-            const tipe = $(this).data('tipe');
+            const tipe = 'ini';
             const status = $(this).data('status'); // 'disable' atau 'activate'
             const text = status === 'disable' ? 'menonaktifkan' : 'mengaktifkan';
             const icon = status === 'disable' ? 'warning' : 'question';
@@ -146,7 +167,7 @@
         });
 
         $(document).on('click', '.btn-delete', function() {
-            const tipe = $(this).data('tipe');
+            const tipe = 'ini';
             const url = $(this).data('url');
             const id = $(this).data('id');
 
@@ -169,9 +190,12 @@
                             _method: 'DELETE'
                         },
                         success: function(response) {
-                            Swal.fire('Berhasil!', response.message, 'success').then(() => {
-                                location.reload();
-                            });
+                            Swal.fire(response.title, response.message, response.status).then(
+                                () => {
+                                    if (response.status != 'error') {
+                                        location.reload();
+                                    }
+                                });
                         },
                         error: function(err) {
                             Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus data.',
