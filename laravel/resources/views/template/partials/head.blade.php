@@ -9,11 +9,11 @@
         href="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/favicon.png" />
 
     <!-- Core Css -->
-    <link rel="stylesheet" href="https://bootstrapdemos.adminmart.com/matdash/dist/assets/css/styles.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     {{-- <link rel="stylesheet"
         href="https://bootstrapdemos.adminmart.com/matdash/dist/assets/css/plugins/atom-one-dark.min.css"> --}}
 
     @stack('css')
-    <title>MatDash Bootstrap Admin</title>
+    <title>E-Presensi Desa Penatahan - @yield('page-title')</title>
 
 </head>

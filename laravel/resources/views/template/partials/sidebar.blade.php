@@ -16,7 +16,7 @@
                     <!-- Pegawai -->
                     <!-- --------------------------------------------------------------------------------------------------------- -->
 
-                    <li class="mini-nav-item single-menu">
+                    <li class="mini-nav-item single-menu" id="dashboard">
                         <a href="{{ route('dashboard') }}" data-bs-toggle="tooltip"
                             data-bs-custom-class="custom-tooltip" data-bs-placement="right" data-bs-title="Dashboard">
                             <iconify-icon icon="solar:tuning-square-2-line-duotone" class="fs-7"></iconify-icon>

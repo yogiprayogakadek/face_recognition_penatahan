@@ -7,6 +7,7 @@ use App\Models\FaceEncoding;
 use App\Models\Kehadiran;
 use App\Models\Pegawai;
 use App\Models\Rule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -63,7 +64,7 @@ class MainController extends Controller
         $rules = Rule::where('is_active', true)->get();
         $ruleMasuk = $rules->firstWhere('tipe', 'masuk');
         $rulePulang = $rules->firstWhere('tipe', 'pulang');
-
+        // dd($ruleMasuk->tipe);
         $tipe = null;
 
         // Tentukan tipe absensi berdasarkan waktu
@@ -89,7 +90,8 @@ class MainController extends Controller
         if (!$tipe) {
             return response()->json([
                 'status' => false,
-                'message' => 'Belum waktunya absensi.'
+                // 'message' => 'Belum waktunya absensi, absensi masuk pada ' . $ruleMasuk->start_time . ' dan absensi pulang pada ' . $rulePulang->start_time
+                'message' => 'Waktu Absensi masuk pada ' . $ruleMasuk->start_time . ' dan absensi pulang pada ' . $rulePulang->start_time
             ]);
         }
 
@@ -118,7 +120,8 @@ class MainController extends Controller
             'aturan_kehadiran_id' => $activeRule->id,
             'tipe' => $tipe,
             'checked_in_at' => $now,
-            'is_late' => $isLate
+            'is_late' => $isLate,
+            'tanggal_absensi' => Carbon::now()
         ]);
 
         $pegawai = Pegawai::find($data['pegawai_id']);

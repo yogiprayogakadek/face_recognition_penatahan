@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         // Route::get('/', 'index')->name('dashboard');
         Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('/dashboard/chart', 'chart')->name('dashboard.chart');
     });
 
     // PEGAWAI
