@@ -22,9 +22,9 @@
                             <th colspan="3" class="text-center">Absensi</th>
                         </tr>
                         <tr>
+                            <th>Tanggal</th>
                             <th>Masuk</th>
                             <th>Pulang</th>
-                            <th>Tanggal</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,9 +35,13 @@
                             @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    {{ optional($item->first())->tanggal_absensi
+                                        ? \Carbon\Carbon::parse($item->first()->tanggal_absensi)->format('d M Y')
+                                        : '-' }}
+                                </td>
                                 <td>{{ $masuk ? $masuk->checked_in_at : '-' }}</td>
                                 <td>{{ $pulang ? $pulang->checked_in_at : '-' }}</td>
-                                <td>{{ $item->first() ? $item->first()->tanggal_absensi : '-' }}</td>
                             </tr>
                         @endforeach
                     </tbody>

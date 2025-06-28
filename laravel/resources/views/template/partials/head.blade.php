@@ -16,4 +16,24 @@
     @stack('css')
     <title>E-Presensi Desa Penatahan - @yield('page-title')</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <style>
+        #printLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            display: none;
+            /* tampilkan hanya ketika butuh */
+        }
+    </style>
+
 </head>

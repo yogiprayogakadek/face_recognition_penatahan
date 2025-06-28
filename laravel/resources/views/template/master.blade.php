@@ -35,8 +35,6 @@
             </header>
             <!--  Header End -->
 
-
-
             <div class="body-wrapper">
                 <div class="container-fluid">
                     <div class="card card-body py-3" id="breadcrumb">
@@ -48,7 +46,7 @@
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item d-flex align-items-center">
                                                 <a class="text-muted text-decoration-none d-flex"
-                                                    href="{{ route('dashboard') }}">
+                                                    href="{{ route(dashboardRoute()) }}">
                                                     <iconify-icon icon="solar:home-2-line-duotone"
                                                         class="fs-6"></iconify-icon>
                                                 </a>
@@ -66,6 +64,45 @@
                     </div>
 
                     @yield('content')
+
+                    <div id="printLoader" class="text-center align-content-center">
+                        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="mt-3 fw-semibold text-primary">
+                            Sedang memproses...
+                        </div>
+                    </div>
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalPrint" tabindex="-1" data-bs-backdrop="static" role="dialog"
+                        aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex align-items-center">
+                                    <h4 class="modal-title">Cetak Absensi</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form id="formPrint">
+                                    <div class="modal-body modal-render">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                            class="btn bg-danger-subtle text-danger  waves-effect text-start"
+                                            data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="button"
+                                            class="btn bg-primary-subtle text-primary  waves-effect text-start btn-cetak">Cetak</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -27,7 +27,7 @@
     </script>
 @endif
 
-{{-- @if (!auth()->user()->pegawai->faceEncoding)
+@if (!auth()->user()->pegawai->faceEncoding)
     <script>
         const currentPath = window.location.pathname;
         const id = '{{ auth()->user()->pegawai->id }}';
@@ -52,7 +52,7 @@
             });
         }
     </script>
-@endif --}}
+@endif
 
 
 <script>
@@ -67,4 +67,37 @@
         $('body').attr('data-sidebartype', 'mini-sidebar');
         $('#main-wrapper').addClass('show-sidebar')
     });
+
+    $('body').on('click', '.laporan-btn', function() {
+        const kategori = $(this).data('cetak');
+        const url = `/laporan/render/${kategori}`;
+        localStorage.setItem('kategori-cetak', kategori);
+
+        $('#modalPrint').modal('show');
+
+        // Optional: tampilkan loader
+        $('#modalPrint .modal-render').html(
+            '<div class="text-center py-4"><div class="spinner-border text-primary" role="status"></div><p>Loading...</p></div>'
+        );
+
+        $.get(url, function(result) {
+            if (result.success) {
+                $('#modalPrint .modal-render').html(result.data);
+            } else {
+                $('#modalPrint .modal-render').html('<p class="text-danger">Gagal memuat data.</p>');
+            }
+        }).fail(function(err) {
+            $('#modalPrint .modal-render').html(
+                '<p class="text-danger">Terjadi kesalahan dalam memuat data.</p>');
+            console.error(err);
+        });
+    });
+
+    function showPrintLoader() {
+        $('#printLoader').fadeIn(200);
+    }
+
+    function hidePrintLoader() {
+        $('#printLoader').fadeOut(200);
+    }
 </script>

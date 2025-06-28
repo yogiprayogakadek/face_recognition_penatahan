@@ -16,6 +16,7 @@ class MainController extends Controller
     // services.python_api.url
     public function showAbsensiPage()
     {
+        // dd(auth()->user()->role);
         $rules = Rule::where('is_active', true)->get();;
         return view('index', compact('rules'));
     }

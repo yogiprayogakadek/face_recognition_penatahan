@@ -4,6 +4,7 @@ use App\Http\Controllers\Main\AuthController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\FaceEncodingController;
 use App\Http\Controllers\Main\KehadiranController;
+use App\Http\Controllers\Main\LaporanController;
 use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Main\PegawaiController;
 use App\Http\Controllers\Main\RuleController;
@@ -26,13 +27,13 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth')->group(function () {
     // DASHBOARD
     Route::controller(DashboardController::class)->group(function () {
-        Route::middleware('role:admin')->group(function () {
-            Route::get('/dashboard', 'index')->name('dashboard');
+        Route::middleware('role:admin')->prefix('admin')->group(function () {
+            Route::get('/dashboard', 'index')->name('dashboard.admin');
             Route::get('/dashboard/chart', 'chart')->name('dashboard.chart');
         });
 
-        Route::middleware('role:pegawai')->group(function () {
-            Route::get('/dashboard', 'dashboardPegawai')->name('dashboard');
+        Route::middleware('role:pegawai')->prefix('pegawai')->group(function () {
+            Route::get('/dashboard', 'dashboardPegawai')->name('dashboard.pegawai');
         });
     });
 
@@ -101,8 +102,19 @@ Route::middleware('auth')->group(function () {
             });
 
             // PEGAWAI
-            Route::middleware('role:pegawai')->group(function () {
+            Route::middleware('role:pegawai')->prefix('pegawai')->name('pegawai.')->group(function () {
                 Route::get('/', 'indexPegawai')->name('index');
+            });
+        });
+
+    // CETAK LAPORAN
+    Route::prefix('laporan')
+        ->name('laporan.')
+        ->controller(LaporanController::class)
+        ->group(function () {
+            Route::middleware('role:admin')->group(function () {
+                Route::get('/render/{kategori}', 'render')->name('render');
+                Route::post('/cetak', 'cetak')->name('cetak');
             });
         });
 });

@@ -34,7 +34,9 @@ class AuthController extends Controller
                     ->with('error', 'Akun Anda non-aktif. Silakan hubungi admin untuk informasi lebih lanjut.');
             }
 
-            return redirect()->intended('/dashboard')
+            $redirect = $user->role == 'admin' ? 'admin/dashboard' : 'pegawai/dashboard';
+
+            return redirect()->intended($redirect)
                 ->with('loginSuccess', 'Selamat datang, <strong>' . $user->pegawai->nama . '</strong>! Gunakan sistem dengan bijak.');
         }
 
