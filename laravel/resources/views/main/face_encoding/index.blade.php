@@ -85,13 +85,13 @@
                                             </button>
                                         </a>
 
-                                        <button type="button" class="btn bg-danger-subtle text-danger btn-delete"
+                                        {{-- <button type="button" class="btn bg-danger-subtle text-danger btn-delete"
                                             data-id="{{ $data->id }}" data-url="{{ route('face.destroy', $data->id) }}"
                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                             data-bs-title="Hapus Face Encoding">
                                             <iconify-icon icon="solar:trash-bin-trash-bold-duotone" width="1em"
                                                 height="1em"></iconify-icon>
-                                        </button>
+                                        </button> --}}
                                     @endif
                                 </td>
                             </tr>
@@ -107,7 +107,7 @@
 @push('script')
     <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
     <script>
         $("#table").DataTable();

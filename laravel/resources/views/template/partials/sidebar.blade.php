@@ -6,7 +6,8 @@
         <div>
             <div class="mini-nav">
                 <div class="brand-logo d-flex align-items-center justify-content-center">
-                    <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
+                    <a class="nav-link {{ auth()->user()->role == 'admin' ? 'sidebartoggler' : '' }}" id="headerCollapse"
+                        href="javascript:void(0)">
                         <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-7"></iconify-icon>
                     </a>
                 </div>
@@ -40,12 +41,29 @@
                                 <iconify-icon icon="solar:settings-linear" class="fs-7"></iconify-icon>
                             </a>
                         </li>
+
+                        <li class="mini-nav-item" id="mini-1">
+                            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                                data-bs-placement="right" data-bs-title="Face Encoding">
+                                <iconify-icon icon="solar:face-scan-square-bold" class="fs-7"></iconify-icon>
+                            </a>
+                        </li>
                     @endcan
 
-                    <li class="mini-nav-item" id="mini-1">
-                        <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                            data-bs-placement="right" data-bs-title="Face Encoding">
-                            <iconify-icon icon="solar:face-scan-square-bold" class="fs-7"></iconify-icon>
+                    @cannot('access-admin-menu')
+                        <li class="mini-nav-item single-menu" id="face">
+                            <a href="{{ route('face.create', auth()->user()->pegawai->id) }}" data-bs-toggle="tooltip"
+                                data-bs-custom-class="custom-tooltip" data-bs-placement="right"
+                                data-bs-title="Tambah/Update Face Encoding">
+                                <iconify-icon icon="solar:face-scan-square-bold" class="fs-7"></iconify-icon>
+                            </a>
+                        </li>
+                    @endcannot
+
+                    <li class="mini-nav-item single-menu" id="kehadiran">
+                        <a href="{{ route('kehadiran.index') }}" data-bs-toggle="tooltip"
+                            data-bs-custom-class="custom-tooltip" data-bs-placement="right" data-bs-title="Absensi">
+                            <iconify-icon icon="solar:tuning-square-2-line-duotone" class="fs-7"></iconify-icon>
                         </a>
                     </li>
                 </ul>
@@ -134,24 +152,23 @@
                             </li>
                         </ul>
                     </nav>
-                @endcan
 
 
-                <!-- ---------------------------------- -->
-                <!-- Face Encoding -->
-                <!-- ---------------------------------- -->
-                <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-                    <ul class="sidebar-menu" id="sidebarnav">
-                        <!-- ---------------------------------- -->
-                        <!-- Face Encoding -->
-                        <!-- ---------------------------------- -->
-                        <li class="nav-small-cap">
-                            <span class="hide-menu">Face Encoding</span>
-                        </li>
-                        <!-- ---------------------------------- -->
-                        <!-- Face Encoding -->
-                        <!-- ---------------------------------- -->
-                        @can('access-admin-menu')
+                    <!-- ---------------------------------- -->
+                    <!-- Face Encoding -->
+                    <!-- ---------------------------------- -->
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <!-- ---------------------------------- -->
+                            <!-- Face Encoding -->
+                            <!-- ---------------------------------- -->
+                            <li class="nav-small-cap">
+                                <span class="hide-menu">Face Encoding</span>
+                            </li>
+                            <!-- ---------------------------------- -->
+                            <!-- Face Encoding -->
+                            <!-- ---------------------------------- -->
+                            {{-- @can('access-admin-menu') --}}
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="list-face" href="{{ route('face.index') }}"
                                     aria-expanded="false">
@@ -159,24 +176,25 @@
                                     <span class="hide-menu">List Face Encoding</span>
                                 </a>
                             </li>
-                        @endcan
+                            {{-- @endcan --}}
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" id="create-face"
-                                href="{{ route('face.create', auth()->user()->pegawai->id) }}" aria-expanded="false">
-                                <iconify-icon icon="solar:add-circle-bold"></iconify-icon>
-                                <span class="hide-menu">Tambah/Update</span>
-                            </a>
-                        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="create-face"
+                                    href="{{ route('face.create', auth()->user()->pegawai->id) }}" aria-expanded="false">
+                                    <iconify-icon icon="solar:add-circle-bold"></iconify-icon>
+                                    <span class="hide-menu">Tambah/Update</span>
+                                </a>
+                            </li>
 
-                        {{-- <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('face.showRestore') }}" aria-expanded="false">
-                                <iconify-icon icon="solar:refresh-bold-duotone"></iconify-icon>
-                                <span class="hide-menu">Restore Face Encoding</span>
-                            </a>
-                        </li> --}}
-                    </ul>
-                </nav>
+                            {{-- <li class="sidebar-item">
+                                                <a class="sidebar-link" href="{{ route('face.showRestore') }}" aria-expanded="false">
+                                                    <iconify-icon icon="solar:refresh-bold-duotone"></iconify-icon>
+                                                    <span class="hide-menu">Restore Face Encoding</span>
+                                                </a>
+                                            </li> --}}
+                        </ul>
+                    </nav>
+                @endcan
             </div>
         </div>
     </div>

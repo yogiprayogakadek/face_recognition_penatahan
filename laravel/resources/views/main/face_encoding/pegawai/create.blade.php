@@ -143,11 +143,13 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#list-face').removeClass('active');
-            $('[id^="mini-"]').removeClass('selected');
-            $('#mini-3').addClass('selected');
-            $('#create-face').addClass('active');
-            $('#menu-right-mini-3').addClass('sidebar-nav d-block simplebar-scrollable-y');
+            setTimeout(() => {
+                $('[id^="mini-"]').removeClass('selected');
+                $('#face').addClass('selected');
+                $('body').attr('data-sidebartype', 'mini-sidebar');
+
+                // $('.container-fluid').css('max-width', '1500px');
+            }, 1000);
         });
     </script>
 

@@ -15,6 +15,7 @@
 <!-- highlight.js (code view) -->
 <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/js/highlights/highlight.min.js"></script>
 <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/js/plugins/toastr-init.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @stack('script')
 
@@ -25,6 +26,34 @@
         });
     </script>
 @endif
+
+{{-- @if (!auth()->user()->pegawai->faceEncoding)
+    <script>
+        const currentPath = window.location.pathname;
+        const id = '{{ auth()->user()->pegawai->id }}';
+        const faceCreatePath = `/face/create/${id}`;
+
+        if (currentPath !== faceCreatePath) {
+            let url = "{{ route('face.create', ':id') }}".replace(':id', id);
+
+            Swal.fire({
+                title: 'Kamu belum ada data wajah',
+                html: `Tambahkan data wajah terlebih dahulu`,
+                icon: 'info',
+                showCancelButton: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Tambahkan',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
+@endif --}}
+
 
 <script>
     hljs.initHighlightingOnLoad();
@@ -37,5 +66,5 @@
     $('body').on('click', '.single-menu', function() {
         $('body').attr('data-sidebartype', 'mini-sidebar');
         $('#main-wrapper').addClass('show-sidebar')
-    })
+    });
 </script>

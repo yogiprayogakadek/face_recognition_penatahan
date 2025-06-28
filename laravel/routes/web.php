@@ -3,6 +3,7 @@
 use App\Http\Controllers\Main\AuthController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\FaceEncodingController;
+use App\Http\Controllers\Main\KehadiranController;
 use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Main\PegawaiController;
 use App\Http\Controllers\Main\RuleController;
@@ -25,16 +26,21 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth')->group(function () {
     // DASHBOARD
     Route::controller(DashboardController::class)->group(function () {
-        // Route::get('/', 'index')->name('dashboard');
-        Route::get('/dashboard', 'index')->name('dashboard');
-        Route::get('/dashboard/chart', 'chart')->name('dashboard.chart');
+        Route::middleware('role:admin')->group(function () {
+            Route::get('/dashboard', 'index')->name('dashboard');
+            Route::get('/dashboard/chart', 'chart')->name('dashboard.chart');
+        });
+
+        Route::middleware('role:pegawai')->group(function () {
+            Route::get('/dashboard', 'dashboardPegawai')->name('dashboard');
+        });
     });
 
     // PEGAWAI
     Route::prefix('pegawai')
-        ->middleware('role:admin')
         ->controller(PegawaiController::class)
         ->name('pegawai.')
+        ->middleware('role:admin')
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
@@ -81,5 +87,22 @@ Route::middleware('auth')->group(function () {
 
             // PEGAWAI
             // Route::get('/create', 'create')->name('create');
+        });
+
+    // ABSENSI
+    Route::prefix('kehadiran')
+        ->name('kehadiran.')
+        ->controller(KehadiranController::class)
+        ->group(function () {
+            // ADMIN
+            Route::middleware('role:admin')->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/histori/{pegawai_id}', 'histori')->name('histori');
+            });
+
+            // PEGAWAI
+            Route::middleware('role:pegawai')->group(function () {
+                Route::get('/', 'indexPegawai')->name('index');
+            });
         });
 });

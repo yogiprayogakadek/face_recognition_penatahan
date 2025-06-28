@@ -21,6 +21,8 @@ class PegawaiController extends Controller
         return view('main.pegawai.index', compact('data'));
     }
 
+
+
     public function create()
     {
         return view('main.pegawai.create');

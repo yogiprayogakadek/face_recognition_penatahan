@@ -41,4 +41,27 @@ class Pegawai extends Model
     {
         return $this->hasOne(FaceEncoding::class, 'pegawai_id', 'id');
     }
+
+    public function kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'pegawai_id', 'id');
+    }
+
+    // Model Pegawai.php
+
+    // Model Pegawai.php
+
+    public function lastKehadiranMasuk()
+    {
+        return $this->hasOne(Kehadiran::class)
+            ->where('tipe', 'masuk')
+            ->latestOfMany('tanggal_absensi');
+    }
+
+    public function lastKehadiranPulang()
+    {
+        return $this->hasOne(Kehadiran::class)
+            ->where('tipe', 'pulang')
+            ->latestOfMany('tanggal_absensi');
+    }
 }

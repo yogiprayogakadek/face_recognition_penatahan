@@ -12,4 +12,15 @@ class Kehadiran extends Model
     protected $table = 'kehadiran';
     protected $guarded = ['id'];
     // protected $dates = ['deleted_at'];
+
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
+    }
+
+    public function aturan()
+    {
+        return $this->belongsTo(Rule::class, 'aturan_kehadiran_id');
+    }
 }

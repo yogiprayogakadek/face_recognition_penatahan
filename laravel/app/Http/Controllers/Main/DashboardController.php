@@ -75,9 +75,6 @@ class DashboardController extends Controller
         ]);
     }
 
-
-
-
     public function chart(Request $request)
     {
         $start = $request->start;
@@ -121,5 +118,53 @@ class DashboardController extends Controller
             'masuk' => $masukCounts,
             'pulang' => $pulangCounts
         ]);
+    }
+
+    public function dashboardPegawai()
+    {
+        $pegawai = auth()->user()->pegawai;
+
+        $today = now()->toDateString();
+
+        $kehadiranMasuk = $pegawai->kehadiran()
+            ->where('tipe', 'masuk')
+            ->whereDate('tanggal_absensi', $today)
+            ->latest('created_at')
+            ->first();
+
+        $kehadiranPulang = $pegawai->kehadiran()
+            ->where('tipe', 'pulang')
+            ->whereDate('tanggal_absensi', $today)
+            ->latest('created_at')
+            ->first();
+
+        $aturanMasuk = Rule::where('tipe', 'masuk')->where('is_active', true)->first();
+        $aturanPulang = Rule::where('tipe', 'pulang')->where('is_active', true)->first();
+
+        $histori = Kehadiran::where('pegawai_id', $pegawai->id)
+            ->select('tanggal_absensi')
+            ->distinct()
+            ->orderBy('tanggal_absensi', 'desc')
+            ->take(7)
+            ->get()
+            ->map(function ($item) use ($pegawai) {
+                $item->masuk = Kehadiran::where('pegawai_id', $pegawai->id)
+                    ->where('tanggal_absensi', $item->tanggal_absensi)
+                    ->where('tipe', 'masuk')
+                    ->first();
+                $item->pulang = Kehadiran::where('pegawai_id', $pegawai->id)
+                    ->where('tanggal_absensi', $item->tanggal_absensi)
+                    ->where('tipe', 'pulang')
+                    ->first();
+                return $item;
+            });
+
+        return view('main.dashboard.pegawai.index', compact(
+            'kehadiranMasuk',
+            'kehadiranPulang',
+            'aturanMasuk',
+            'aturanPulang',
+            'histori'
+        ));
     }
 }

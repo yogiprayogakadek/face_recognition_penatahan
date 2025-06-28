@@ -112,8 +112,7 @@
             </div>
         </div>
 
-
-
+        {{-- CHART --}}
         <div class="col-lg-12">
             <div class="d-flex border-bottom title-part-padding px-0 mb-3 align-items-center">
                 {{-- <h4 class="mb-0 fs-5">Card with background</h4> --}}
@@ -186,71 +185,6 @@
     <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    {{-- <script>
-        $(document).ready(function() {
-            var options = {
-                chart: {
-                    type: 'area',
-                    height: 350,
-                    toolbar: {
-                        show: false
-                    }
-                },
-                colors: ['#6366f1'],
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth',
-                    width: 3
-                },
-                series: [{
-                    name: 'Kehadiran',
-                    data: @json($attendanceCounts) // dari controller
-                }],
-                xaxis: {
-                    categories: @json($dates), // dari controller
-                    labels: {
-                        style: {
-                            colors: '#9ca3af'
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: '#9ca3af'
-                        }
-                    },
-                    min: 0
-                },
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.4,
-                        opacityTo: 0.1,
-                        stops: [0, 90, 100]
-                    }
-                },
-                tooltip: {
-                    theme: 'dark',
-                    y: {
-                        formatter: function(val) {
-                            return val + " hadir";
-                        }
-                    }
-                },
-                grid: {
-                    borderColor: '#e5e7eb',
-                    strokeDashArray: 4
-                }
-            };
-
-            var chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
-        });
-    </script> --}}
 
     <script>
         function updateClock() {
