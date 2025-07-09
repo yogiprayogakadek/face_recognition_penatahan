@@ -17,3 +17,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/face_api/venv/

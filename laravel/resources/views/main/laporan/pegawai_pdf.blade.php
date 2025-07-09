@@ -59,7 +59,7 @@
 <body>
 
     <div class="header">
-        {{-- <img src="{{ public_path('logo.png') }}" alt="Logo"> --}}
+        <img src="{{ public_path('assets/images/logo/logo.png') }}" alt="Logo">
         <h2>Laporan Data Pegawai</h2>
         <p>{{ now()->format('d M Y') }}</p>
     </div>

@@ -8,20 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png"
-        href="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logo/logo.png') }}" />
 
     <!-- Core Css -->
-    <link rel="stylesheet" href="https://bootstrapdemos.adminmart.com/matdash/dist/assets/css/styles.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
 
-    <title>MatDash Bootstrap Admin</title>
+    <title>Login | E-Presensi Desa Penatahan</title>
 </head>
 
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/favicon.png" alt="loader"
-            class="lds-ripple img-fluid" />
+        <img src="{{ asset('assets/images/logo/logo.png') }}" alt="loader" class="lds-ripple img-fluid" />
     </div>
     <div id="main-wrapper">
         <div
@@ -34,16 +32,16 @@
                                 <!-- ------------------------------------------------- -->
                                 <!-- Part 1 -->
                                 <!-- ------------------------------------------------- -->
-                                <div class="col-xl-6 border-end">
+                                <div class="col-xl-12">
                                     <div class="row justify-content-center py-4">
                                         <div class="col-lg-11">
                                             <div class="card-body">
-                                                <a href="../main/index.html"
+                                                <a href="{{ route('login') }}"
                                                     class="text-nowrap logo-img d-block mb-4 w-100 text-center">
-                                                    <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/logo.svg"
+                                                    <img src="{{ asset('assets/images/logo/logo.png') }}"
                                                         class="dark-logo" alt="Logo-Dark" />
                                                 </a>
-                                                <h3 class="lh-base mb-4 text-center">E Presensi Face Recognition</h3>
+                                                <h3 class="lh-base mb-4 text-center">E-Presensi Face Recognition</h3>
 
                                                 <form method="POST" action="{{ route('login') }}">
                                                     @csrf
@@ -59,7 +57,7 @@
                                                             <label for="exampleInputPassword1"
                                                                 class="form-label">Password</label>
                                                             <a class="text-primary link-dark fs-2"
-                                                                href="../main/authentication-forgot-password2.html">Forgot
+                                                                href="javascript:void(0)" id="forgotPassword">Forgot
                                                                 Password ?</a>
                                                         </div>
                                                         <input type="password" class="form-control"
@@ -70,76 +68,6 @@
                                                         class="btn btn-dark w-100 py-8 mb-4 rounded-1">Sign In</a>
                                                 </form>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- ------------------------------------------------- -->
-                                <!-- Part 2 -->
-                                <!-- ------------------------------------------------- -->
-                                <div class="col-xl-6 d-none d-xl-block">
-                                    <div class="row justify-content-center align-items-start h-100">
-                                        <div class="col-lg-9">
-                                            <div id="auth-login" class="carousel slide auth-carousel mt-5 pt-4"
-                                                data-bs-ride="carousel">
-                                                <div class="carousel-indicators">
-                                                    <button type="button" data-bs-target="#auth-login"
-                                                        data-bs-slide-to="0" class="active" aria-current="true"
-                                                        aria-label="Slide 1"></button>
-                                                    <button type="button" data-bs-target="#auth-login"
-                                                        data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                    <button type="button" data-bs-target="#auth-login"
-                                                        data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                </div>
-                                                <div class="carousel-inner">
-                                                    <div class="carousel-item active">
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-center w-100 h-100 flex-column gap-9 text-center">
-                                                            <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/backgrounds/login-side.png"
-                                                                alt="login-side-img" width="300" class="img-fluid" />
-                                                            <h4 class="mb-0">Feature Rich 3D Charts</h4>
-                                                            <p class="fs-12 mb-0">Donec justo tortor, malesuada vitae
-                                                                faucibus ac, tristique sit amet
-                                                                massa.
-                                                                Aliquam dignissim nec felis quis imperdiet.</p>
-                                                            <a href="javascript:void(0)"
-                                                                class="btn btn-primary rounded-1">Learn More</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-center w-100 h-100 flex-column gap-9 text-center">
-                                                            <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/backgrounds/login-side.png"
-                                                                alt="login-side-img" width="300" class="img-fluid" />
-                                                            <h4 class="mb-0">Feature Rich 2D Charts</h4>
-                                                            <p class="fs-12 mb-0">Donec justo tortor, malesuada vitae
-                                                                faucibus ac, tristique sit amet
-                                                                massa.
-                                                                Aliquam dignissim nec felis quis imperdiet.</p>
-                                                            <a href="javascript:void(0)"
-                                                                class="btn btn-primary rounded-1">Learn More</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-center w-100 h-100 flex-column gap-9 text-center">
-                                                            <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/backgrounds/login-side.png"
-                                                                alt="login-side-img" width="300"
-                                                                class="img-fluid" />
-                                                            <h4 class="mb-0">Feature Rich 1D Charts</h4>
-                                                            <p class="fs-12 mb-0">Donec justo tortor, malesuada vitae
-                                                                faucibus ac, tristique sit amet
-                                                                massa.
-                                                                Aliquam dignissim nec felis quis imperdiet.</p>
-                                                            <a href="javascript:void(0)"
-                                                                class="btn btn-primary rounded-1">Learn More</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
                                         </div>
                                     </div>
 
@@ -174,6 +102,14 @@
             });
         </script>
     @endif
+
+    <script>
+        $('body').on('click', '#forgotPassword', function() {
+            toastr.info("Gagal Login", "Hubungi admin untuk perubahan password!", {
+                closeButton: true,
+            });
+        });
+    </script>
 </body>
 
 </html>

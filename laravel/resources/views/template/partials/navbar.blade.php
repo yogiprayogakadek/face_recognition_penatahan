@@ -9,7 +9,7 @@
     </ul>
 
     <div class="d-block d-lg-none py-9 py-xl-0">
-        <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/logo.svg" alt="matdash-img" />
+        <img src="{{ asset('assets/images/logo/main-logo.png') }}" height="40px" alt="matdash-img" />
     </div>
     <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
         data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"

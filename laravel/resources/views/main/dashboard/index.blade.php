@@ -79,13 +79,13 @@
                         <div>
                             <h4 class="fs-6 text-center">Masuk</h4>
                             <h5 class="fs-4 fw-medium text-info mb-0">
-                                {{ $aturanMasuk->start_time }} - {{ $aturanMasuk->end_time }}
+                                {{ $aturanMasuk->start_time ?? '-' }} - {{ $aturanMasuk->end_time ?? '-' }}
                             </h5>
                         </div>
                         <div class="ms-auto">
                             <h4 class="fs-6 text-center">Pulang</h4>
                             <h5 class="fs-4 fw-medium text-info mb-0">
-                                {{ $aturanPulang->start_time }} - {{ $aturanPulang->end_time ?? '-' }}
+                                {{ $aturanPulang->start_time ?? '-' }} - {{ $aturanPulang->end_time ?? '-' }}
                             </h5>
                         </div>
                     </div>

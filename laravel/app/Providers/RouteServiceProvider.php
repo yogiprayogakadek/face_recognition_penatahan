@@ -17,7 +17,20 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+
+    // public const HOME_ADMIN = 'admin/dashboard';
+    // public const HOME_PEGAWAI = 'pegawai/dashboard';
+
+    public static function home()
+    {
+        $role = auth()->user()?->role;
+
+        return match ($role) {
+            'admin' => '/admin/dashboard',
+            'pegawai' => '/pegawai/dashboard',
+            default => '/',
+        };
+    }
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

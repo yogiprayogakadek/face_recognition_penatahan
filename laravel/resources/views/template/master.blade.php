@@ -6,8 +6,7 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/favicon.png" alt="loader"
-            class="lds-ripple img-fluid" />
+        <img src="{{ asset('assets/images/logo/logo.png') }}" alt="loader" class="lds-ripple img-fluid" />
     </div>
     <div id="main-wrapper">
         <!-- Sidebar Start -->

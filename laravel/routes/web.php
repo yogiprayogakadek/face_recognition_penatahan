@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
         Route::middleware('role:admin')->prefix('admin')->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard.admin');
             Route::get('/dashboard/chart', 'chart')->name('dashboard.chart');
+
+            // Route::get('/home', 'index');
         });
 
         Route::middleware('role:pegawai')->prefix('pegawai')->group(function () {

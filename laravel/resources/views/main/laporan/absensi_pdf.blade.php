@@ -89,7 +89,7 @@
 <body>
 
     <div class="header">
-        {{-- <img src="{{ public_path('logo.png') }}" alt="Logo"> --}}
+        <img src="{{ public_path('assets/images/logo/logo.png') }}" alt="Logo">
         <h2>Laporan Absensi</h2>
         <p>Periode: {{ \Carbon\Carbon::parse(request()->start_date)->format('d M Y') }} -
             {{ \Carbon\Carbon::parse(request()->end_date)->format('d M Y') }}</p>

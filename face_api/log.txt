@@ -1,0 +1,39 @@
+2025-07-06 22:35:33,116 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-06 22:35:33,118 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-06 22:35:33,121 [INFO]  * Restarting with stat
+2025-07-06 22:35:35,785 [WARNING]  * Debugger is active!
+2025-07-06 22:35:35,790 [INFO]  * Debugger PIN: 980-616-995
+2025-07-06 22:35:38,350 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-06 22:35:38,350 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-06 22:35:39,170 [INFO] ✅ Face encoding berhasil diambil.
+2025-07-06 22:35:39,179 [INFO] 127.0.0.1 - - [06/Jul/2025 22:35:39] "POST /register_face HTTP/1.1" 200 -
+2025-07-08 22:53:23,815 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-08 22:53:23,815 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-08 22:53:23,826 [INFO]  * Restarting with stat
+2025-07-08 22:53:32,647 [WARNING]  * Debugger is active!
+2025-07-08 22:53:32,666 [INFO]  * Debugger PIN: 980-616-995
+2025-07-08 22:55:07,863 [INFO] 127.0.0.1 - - [08/Jul/2025 22:55:07] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-07-08 22:55:11,913 [INFO] 127.0.0.1 - - [08/Jul/2025 22:55:11] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-07-08 22:55:40,370 [INFO] 127.0.0.1 - - [08/Jul/2025 22:55:40] "POST /verify_face HTTP/1.1" 200 -
+2025-07-08 22:56:02,224 [INFO] 127.0.0.1 - - [08/Jul/2025 22:56:02] "POST /verify_face HTTP/1.1" 200 -
+2025-07-08 22:56:10,846 [INFO] 127.0.0.1 - - [08/Jul/2025 22:56:10] "POST /verify_face HTTP/1.1" 200 -
+2025-07-08 23:04:18,577 [INFO] 127.0.0.1 - - [08/Jul/2025 23:04:18] "POST /verify_face HTTP/1.1" 200 -
+2025-07-08 23:04:31,153 [INFO] 127.0.0.1 - - [08/Jul/2025 23:04:31] "POST /verify_face HTTP/1.1" 200 -
+2025-07-08 23:04:37,618 [INFO] 127.0.0.1 - - [08/Jul/2025 23:04:37] "POST /verify_face HTTP/1.1" 200 -
+2025-07-08 23:04:42,479 [INFO] 127.0.0.1 - - [08/Jul/2025 23:04:42] "POST /verify_face HTTP/1.1" 200 -
+2025-07-09 08:20:53,925 [INFO] 127.0.0.1 - - [09/Jul/2025 08:20:53] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-07-09 08:22:39,541 [INFO] 127.0.0.1 - - [09/Jul/2025 08:22:39] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-07-09 08:23:07,712 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-09 08:23:07,713 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-09 08:23:07,713 [INFO]  * Restarting with stat
+2025-07-09 08:23:10,832 [WARNING]  * Debugger is active!
+2025-07-09 08:23:10,870 [INFO]  * Debugger PIN: 980-616-995
+2025-07-09 08:23:13,607 [INFO] 127.0.0.1 - - [09/Jul/2025 08:23:13] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-07-09 08:23:27,821 [INFO] 127.0.0.1 - - [09/Jul/2025 08:23:27] "POST /verify_face HTTP/1.1" 200 -
+2025-07-09 08:27:50,958 [INFO] 127.0.0.1 - - [09/Jul/2025 08:27:50] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-07-09 08:28:05,358 [INFO] 127.0.0.1 - - [09/Jul/2025 08:28:05] "POST /verify_face HTTP/1.1" 200 -
+2025-07-09 08:28:11,592 [INFO] 127.0.0.1 - - [09/Jul/2025 08:28:11] "POST /verify_face HTTP/1.1" 200 -
+2025-07-09 08:28:27,126 [INFO] 127.0.0.1 - - [09/Jul/2025 08:28:27] "POST /verify_face HTTP/1.1" 200 -

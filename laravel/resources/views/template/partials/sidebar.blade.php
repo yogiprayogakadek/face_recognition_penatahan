@@ -80,9 +80,8 @@
             </div>
             <div class="sidebarmenu">
                 <div class="brand-logo d-flex align-items-center nav-logo">
-                    <a href="../main/index.html" class="text-nowrap logo-img">
-                        <img src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/logos/logo.svg"
-                            alt="Logo" />
+                    <a href="{{ dashboardRoute() }}" class="text-nowrap logo-img">
+                        <img src="{{ asset('assets/images/logo/main-logo.png') }}" height="40px" alt="Logo" />
                     </a>
 
                 </div>

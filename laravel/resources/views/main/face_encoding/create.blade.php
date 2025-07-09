@@ -99,7 +99,7 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">
-                Pendaftaran Data Wajah - {{ $pegawai->nama }}
+                {{ $pegawai->faceEncoding ? 'Update' : 'Pendaftaran' }} Data Wajah - {{ $pegawai->nama }}
             </h5>
 
             <div class="row">

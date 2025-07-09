@@ -40923,12 +40923,12 @@ body pre[class*="language-"] {
     background: #1f2a3d;
 }
 .auth-bg {
-    background: url(../images/backgrounds/login-bg.jpg);
+    background: url(https://bootstrapdemos.adminmart.com/matdash/dist/assets/images/backgrounds/login-bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
 .auth-login {
-    max-width: 1160px;
+    max-width: 700px;
 }
 .auth-carousel.carousel .carousel-indicators {
     margin-bottom: -5rem;

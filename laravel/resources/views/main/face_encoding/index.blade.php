@@ -20,6 +20,27 @@
         </div>
     @endif
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalDetail" tabindex="-1" data-bs-backdrop="static" role="dialog"
+        aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <h4 class="modal-title">Detail Data Face Encoding <span id="staffName"></span></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <table class="table table-borderless" id="tableFaceEncoding">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">Daftar Face Encoding</h5>
@@ -56,7 +77,8 @@
                                     @if ($data->faceEncoding)
                                         <button type="button" class="btn bg-info-subtle text-info btn-detail"
                                             data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-face="{{ json_encode($data->faceEncoding->encodings) }}"
+                                            data-nama="{{ $data->nama }}" data-bs-toggle="tooltip" data-bs-placement="top"
                                             data-bs-title="Lihat Face Encoding">
                                             <iconify-icon icon="solar:eye-bold" width="1em"
                                                 height="1em"></iconify-icon>
@@ -76,7 +98,7 @@
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('face.edit', $data->id) }}">
+                                        <a href="{{ route('face.create', $data->id) }}">
                                             <button class="btn btn-outline-success" data-bs-toggle="tooltip"
                                                 data-bs-custom-class="custom-tooltip" data-bs-placement="top"
                                                 data-bs-title="Edit">
@@ -147,6 +169,22 @@
                     });
                 }
             });
+        });
+
+        $('body').on('click', '.btn-detail', function() {
+            let face = $(this).data('face');
+            let nama = $(this).data('nama');
+
+            $('#modalDetail').modal('show');
+            $('#staffName').text(' - ' + nama)
+
+
+            $('#tableFaceEncoding tbody').empty();
+
+            let jsonString = JSON.stringify(face); // satu baris panjang, tanpa newline
+            let row =
+                `<tr><td><div style="white-space: normal; word-break: break-word;">${jsonString}</div></td></tr>`;
+            $('#tableFaceEncoding tbody').append(row);
         });
     </script>
 @endpush
