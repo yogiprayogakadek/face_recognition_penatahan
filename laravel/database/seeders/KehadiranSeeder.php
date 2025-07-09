@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Kehadiran;
 use App\Models\Rule;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
@@ -11,7 +12,7 @@ class KehadiranSeeder extends Seeder
 {
     public function run(): void
     {
-        $jumlahPegawai = 8;
+        $jumlahPegawai = User::count();
         $startDate = Carbon::parse('2024-01-01');
         $endDate = Carbon::now();
 

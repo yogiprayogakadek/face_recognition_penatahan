@@ -77,7 +77,7 @@
             <p id="waktu" class="text-sm text-gray-500 dark:text-gray-300"></p>
             <p id="absen-status" class="inline-block px-3 py-1 rounded-full text-sm font-medium"></p>
             <p id="user-name" class="mt-1"></p>
-            <div class="mt-2">
+            {{-- <div class="mt-2">
                 <label for="theme-select" class="text-sm mr-2">Tema:</label>
                 <select id="theme-select" onchange="setTheme(this.value)"
                     class="bg-white dark:bg-gray-800 text-sm px-3 py-1 rounded">
@@ -85,7 +85,7 @@
                     <option value="blue">Biru</option>
                     <option value="green">Hijau</option>
                 </select>
-            </div>
+            </div> --}}
         </div>
 
         <div

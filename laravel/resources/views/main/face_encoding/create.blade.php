@@ -145,7 +145,7 @@
         $(document).ready(function() {
             $('[id^="mini-"]').removeClass('selected');
             $('#mini-3').addClass('selected');
-            $('#list-face').addClass('active');
+            // $('#list-face').addClass('active');
             $('#menu-right-mini-3').addClass('sidebar-nav d-block simplebar-scrollable-y');
         });
     </script>
