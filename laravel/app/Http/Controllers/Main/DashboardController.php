@@ -53,6 +53,20 @@ class DashboardController extends Controller
         $aturanMasuk = Rule::where('is_active', true)->where('tipe', 'masuk')->first();
         $aturanPulang = Rule::where('is_active', true)->where('tipe', 'pulang')->first();
 
+        // TAMBAHAN
+        // $jumlahTerlambat = Kehadiran::whereDate('tanggal_absensi', $today)
+        //     ->where('tipe', 'masuk')
+        //     ->where('checked_in_at', '>', $aturanMasuk->end_time) // Asumsi ada kolom jam_absensi
+        //     ->count();
+
+        // $tepatWaktu = $hadirMasuk - $jumlahTerlambat;
+
+        // $kinerjaHadir = ($totalPegawai > 0) ? round(($hadirMasuk / $totalPegawai) * 100) : 0;
+
+        // $hadirHariIni = $masukCounts->last() ?? 0;
+        // $hadirKemarin = $masukCounts->slice(-2, 1)->first() ?? 0;
+        // $perbandingan = $hadirHariIni - $hadirKemarin;
+
         return view('main.dashboard.index', [
             'totalPegawai' => $totalPegawai,
             'laki' => $laki,
@@ -72,6 +86,9 @@ class DashboardController extends Controller
 
             'aturanMasuk' => $aturanMasuk,
             'aturanPulang' => $aturanPulang,
+            // 'tepatWaktu' => $tepatWaktu,
+            // 'kinerjaHadir' => $kinerjaHadir,
+            // 'perbandingan' => $perbandingan,
         ]);
     }
 

@@ -5,6 +5,39 @@
 @push('css')
     <link rel="stylesheet"
         href="https://bootstrapdemos.adminmart.com/matdash/dist/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+    <!-- Add GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <style>
+        .face-images-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .face-image-thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .face-image-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .json-data {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -23,20 +56,32 @@
     <!-- Modal -->
     <div class="modal fade" id="modalDetail" tabindex="-1" data-bs-backdrop="static" role="dialog"
         aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center">
-                    <h4 class="modal-title">Detail Data Face Encoding <span id="staffName"></span></h4>
+                    <h4 class="modal-title">Detail Data Face Encoding - <span id="staffName"></span></h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <table class="table table-borderless" id="tableFaceEncoding">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="modal-body">
+                    <table class="table table-borderless" id="tableFaceEncoding">
+                        <thead>
+                            <tr>
+                                <th width="30%">Data Encoding</th>
+                                <th>Face Images</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="json-data" id="jsonData"></div>
+                                </td>
+                                <td>
+                                    <div class="face-images-container" id="faceImagesContainer"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -76,8 +121,9 @@
                                 <td class="text-center">
                                     @if ($data->faceEncoding)
                                         <button type="button" class="btn bg-info-subtle text-info btn-detail"
-                                            data-id="{{ $data->id }}" data-tipe="{{ $data->tipe }}"
+                                            data-id="{{ $data->id }}"
                                             data-face="{{ json_encode($data->faceEncoding->encodings) }}"
+                                            data-images="{{ json_encode($data->faceEncoding->face_images) }}"
                                             data-nama="{{ $data->nama }}" data-bs-toggle="tooltip" data-bs-placement="top"
                                             data-bs-title="Lihat Face Encoding">
                                             <iconify-icon icon="solar:eye-bold" width="1em"
@@ -106,14 +152,6 @@
                                                     height="1em"></iconify-icon>
                                             </button>
                                         </a>
-
-                                        {{-- <button type="button" class="btn bg-danger-subtle text-danger btn-delete"
-                                            data-id="{{ $data->id }}" data-url="{{ route('face.destroy', $data->id) }}"
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                            data-bs-title="Hapus Face Encoding">
-                                            <iconify-icon icon="solar:trash-bin-trash-bold-duotone" width="1em"
-                                                height="1em"></iconify-icon>
-                                        </button> --}}
                                     @endif
                                 </td>
                             </tr>
@@ -121,7 +159,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 @endsection
@@ -129,62 +166,77 @@
 @push('script')
     <script src="https://bootstrapdemos.adminmart.com/matdash/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js">
     </script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    <!-- Add GLightbox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
     <script>
         $("#table").DataTable();
 
-        $(document).on('click', '.btn-delete', function() {
-            const tipe = $(this).data('tipe');
-            const url = $(this).data('url');
-            const id = $(this).data('id');
-
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                html: `Data rule <strong>${tipe}</strong> akan dihapus.`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            _method: 'DELETE'
-                        },
-                        success: function(response) {
-                            Swal.fire('Berhasil!', response.message, 'success').then(() => {
-                                location.reload();
-                            });
-                        },
-                        error: function(err) {
-                            Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus data.',
-                                'error');
-                        }
-                    });
-                }
-            });
+        // Initialize GLightbox
+        const lightbox = GLightbox({
+            selector: '.glightbox',
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: false,
+            moreText: 'Lihat lebih banyak',
+            zoomable: true
         });
 
         $('body').on('click', '.btn-detail', function() {
             let face = $(this).data('face');
+            let images = $(this).data('images');
             let nama = $(this).data('nama');
 
             $('#modalDetail').modal('show');
-            $('#staffName').text(' - ' + nama)
+            $('#staffName').text(nama);
 
+            // Format and display JSON data
+            $('#jsonData').text(JSON.stringify(face, null, 2));
 
-            $('#tableFaceEncoding tbody').empty();
+            // Clear previous images
+            $('#faceImagesContainer').empty();
 
-            let jsonString = JSON.stringify(face); // satu baris panjang, tanpa newline
-            let row =
-                `<tr><td><div style="white-space: normal; word-break: break-word;">${jsonString}</div></td></tr>`;
-            $('#tableFaceEncoding tbody').append(row);
+            // Check if images exist and is not null
+            if (images) {
+                try {
+                    // Handle double-encoded JSON
+                    let parsedImages = images;
+
+                    // Keep parsing until we get an array
+                    while (typeof parsedImages === 'string') {
+                        parsedImages = JSON.parse(parsedImages);
+                    }
+
+                    console.log('Final parsed images:', parsedImages);
+                    console.log('Is array?', Array.isArray(parsedImages));
+                    console.table(parsedImages);
+
+                    // Check if parsed result is an array and has items
+                    if (Array.isArray(parsedImages) && parsedImages.length > 0) {
+                        parsedImages.forEach((image, index) => {
+                            if (image.image_path) {
+                                const fullImagePath = "{{ asset('storage') }}/" + image.image_path;
+                                $('#faceImagesContainer').append(`
+                            <a href="${fullImagePath}" class="glightbox" data-gallery="gallery-${nama}">
+                                <img src="${fullImagePath}" class="face-image-thumbnail" alt="Face Image ${index + 1}">
+                            </a>
+                        `);
+                            }
+                        });
+                    } else {
+                        $('#faceImagesContainer').html(
+                            '<p class="text-muted">Tidak ada gambar wajah tersimpan</p>');
+                    }
+                } catch (error) {
+                    console.error('Error parsing images JSON:', error);
+                    $('#faceImagesContainer').html('<p class="text-muted">Error memproses data gambar</p>');
+                }
+            } else {
+                $('#faceImagesContainer').html('<p class="text-muted">Tidak ada gambar wajah tersimpan</p>');
+            }
+
+            // Refresh GLightbox to include new images
+            lightbox.reload();
         });
     </script>
 @endpush

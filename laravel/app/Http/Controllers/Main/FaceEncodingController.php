@@ -8,6 +8,7 @@ use App\Models\Kehadiran;
 use App\Models\Pegawai;
 use App\Models\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class FaceEncodingController extends Controller
@@ -129,7 +130,8 @@ class FaceEncodingController extends Controller
         try {
             $request->validate([
                 'images' => 'required|array|min:1',
-                'images.*' => 'image|mimes:jpg,jpeg,png'
+                'images.*' => 'image|mimes:jpg,jpeg,png',
+                'pegawai_id' => 'required|exists:pegawai,id'
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
@@ -139,8 +141,22 @@ class FaceEncodingController extends Controller
         }
 
         $pegawaiId = $request->pegawai_id;
+        $imagesStore = [];
+
+        DB::beginTransaction(); // Mulai transaction
 
         try {
+            // Simpan gambar terlebih dahulu
+            foreach ($request->file('images') as $i => $img) {
+                $filename = time() . '_' . uniqid() . '_' . $img->getClientOriginalName();
+                $img->storeAs('public/assets/images/users/face_images', $filename);
+                $imagesStore[] = [
+                    'id' => $i + 1,
+                    'image_path' => 'assets/images/users/face_images/' . $filename,
+                ];
+            }
+
+            // Kirim ke Python API
             $http = Http::timeout(15);
             foreach ($request->file('images') as $i => $img) {
                 $http = $http->attach(
@@ -155,6 +171,7 @@ class FaceEncodingController extends Controller
             ]);
 
             if ($response->status() === 409) {
+                DB::rollBack(); // Rollback jika wajah sudah terdaftar
                 $matchedId = $response->json()['matched_pegawai_id'];
                 $matchedPegawai = Pegawai::find($matchedId);
 
@@ -167,6 +184,7 @@ class FaceEncodingController extends Controller
             }
 
             if (!$response->successful()) {
+                DB::rollBack(); // Rollback jika Python API error
                 return response()->json([
                     'status' => false,
                     'message' => 'Python server error',
@@ -176,19 +194,27 @@ class FaceEncodingController extends Controller
 
             $data = $response->json();
 
+            // Simpan ke database
             FaceEncoding::updateOrCreate(
-                ['pegawai_id' => $pegawaiId],
-                ['encodings' => $data['encodings']]
+                ['pegawai_id' => $pegawaiId], // Kondisi
+                [                             // Data
+                    'encodings' => $data['encodings'],
+                    'face_images' => json_encode($imagesStore)
+                ]
             );
+
+            DB::commit(); // Commit transaksi jika semua berhasil
 
             return response()->json([
                 'status' => true,
-                'message' => 'Wajah berhasil diregistrasi'
+                'message' => 'Wajah berhasil diregistrasi',
+                'images' => $imagesStore
             ]);
         } catch (\Exception $e) {
+            DB::rollBack(); // Rollback jika ada exception
             return response()->json([
                 'status' => false,
-                'message' => 'Gagal terhubung ke server Python',
+                'message' => 'Terjadi kesalahan',
                 'error' => $e->getMessage()
             ], 500);
         }

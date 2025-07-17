@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(MainController::class)->group(function () {
     Route::get('/', 'showAbsensiPage');
     Route::post('/verify', 'verifyFace')->name('face.verify');
+    Route::get('/encodings', 'getFaceEncodings')->name('face.encodings');
 });
 
 // AUTH

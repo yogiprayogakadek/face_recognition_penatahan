@@ -2,14 +2,36 @@
 <html lang="id" class="transition duration-500">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>E-Presensi Desa Penatahan - Enhanced</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com "></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css " />
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'scanner': 'scanner 2s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         html,
         body {
@@ -70,6 +92,30 @@
             }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .glow-box {
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -125,6 +171,16 @@
             transform: translateX(0);
         }
 
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
         .floating-particles {
             position: fixed;
             width: 4px;
@@ -172,8 +228,10 @@
 </head>
 
 <body class="text-white overflow-hidden">
+    <!-- Floating Particles -->
     <div id="particles-container"></div>
 
+    <!-- Notification System -->
     <div id="notification" class="notification">
         <div class="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
             <i class="fas fa-check-circle text-xl"></i>
@@ -184,7 +242,9 @@
         </div>
     </div>
 
+    <!-- Main Container -->
     <div class="min-h-screen flex flex-col">
+        <!-- Header -->
         <header class="glass-effect p-4 animate-slide-up">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-4">
@@ -200,6 +260,8 @@
                         <p class="text-sm opacity-80">Desa Penatahan - Smart Attendance System</p>
                     </div>
                 </div>
+
+                <!-- Weather Widget -->
                 <div class="weather-widget rounded-xl p-4 flex items-center gap-3">
                     <i class="fas fa-cloud-sun text-2xl"></i>
                     <div>
@@ -210,8 +272,11 @@
             </div>
         </header>
 
+        <!-- Main Content -->
         <main class="flex-1 flex">
+            <!-- Left Sidebar -->
             <aside class="w-80 glass-effect p-6 animate-slide-up" style="animation-delay: 0.2s">
+                <!-- Time Display -->
                 <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 mb-6 text-center">
                     <div class="text-3xl font-bold mb-2" id="waktu"></div>
                     <div class="text-sm opacity-90" id="tanggal"></div>
@@ -222,6 +287,7 @@
                     </div>
                 </div>
 
+                <!-- Statistics -->
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div class="stats-card rounded-xl p-4 text-center">
                         <i class="fas fa-users text-2xl text-blue-400 mb-2"></i>
@@ -245,22 +311,26 @@
                     </div>
                 </div>
 
+                <!-- Controls -->
                 <div class="space-y-4">
                     <button onclick="toggleDark()"
                         class="w-full glass-effect hover:bg-white/20 p-3 rounded-xl flex items-center gap-3 transition-all">
                         <i class="fas fa-moon text-yellow-400"></i>
                         <span>Toggle Dark Mode</span>
                     </button>
+
                     <button onclick="toggleSound()"
                         class="w-full glass-effect hover:bg-white/20 p-3 rounded-xl flex items-center gap-3 transition-all">
                         <i id="sound-icon" class="fas fa-volume-up text-blue-400"></i>
                         <span>Sound: <span id="sound-status">ON</span></span>
                     </button>
+
                     <button onclick="testCameraAndModel()"
                         class="w-full glass-effect hover:bg-white/20 p-3 rounded-xl flex items-center gap-3 transition-all">
                         <i class="fas fa-camera text-green-400"></i>
                         <span>Test Camera</span>
                     </button>
+
                     <button onclick="calibrateCamera()"
                         class="w-full glass-effect hover:bg-white/20 p-3 rounded-xl flex items-center gap-3 transition-all">
                         <i class="fas fa-cog text-purple-400"></i>
@@ -269,12 +339,19 @@
                 </div>
             </aside>
 
+            <!-- Center Content -->
             <div class="flex-1 flex flex-col items-center justify-center p-8">
+                <!-- Camera Container -->
                 <div class="relative animate-fade-in">
                     <div class="relative w-[640px] h-[480px] rounded-3xl overflow-hidden glow-box bg-black">
+                        <!-- Scanner Line -->
                         <div class="scanner-line"></div>
+
+                        <!-- Video -->
                         <video id="video" autoplay muted playsinline class="w-full h-full object-cover"></video>
                         <canvas id="overlay" class="w-full h-full"></canvas>
+
+                        <!-- Overlay UI -->
                         <div class="absolute top-4 left-4 right-4 flex justify-between items-start">
                             <div class="glass-effect px-4 py-2 rounded-full">
                                 <span class="text-sm font-medium">🎯 Scanning...</span>
@@ -283,6 +360,8 @@
                                 <span class="text-sm font-medium" id="fps-counter">FPS: --</span>
                             </div>
                         </div>
+
+                        <!-- Detection Info -->
                         <div class="absolute bottom-4 left-4 right-4">
                             <div class="glass-effect p-4 rounded-2xl">
                                 <div class="flex items-center justify-between">
@@ -295,6 +374,8 @@
                                         <div class="font-semibold" id="confidence-level">--</div>
                                     </div>
                                 </div>
+
+                                <!-- Progress Bar -->
                                 <div class="mt-3 bg-white/20 rounded-full h-2">
                                     <div id="scan-progress"
                                         class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
@@ -305,6 +386,7 @@
                     </div>
                 </div>
 
+                <!-- User Info Display -->
                 <div class="mt-6 text-center animate-slide-up" style="animation-delay: 0.4s">
                     <div id="user-info" class="glass-effect p-6 rounded-2xl min-w-[400px]">
                         <div class="text-lg font-semibold mb-2">Scan wajah untuk presensi</div>
@@ -318,7 +400,9 @@
                 </div>
             </div>
 
+            <!-- Right Sidebar -->
             <aside class="w-80 glass-effect p-6 animate-slide-up" style="animation-delay: 0.6s">
+                <!-- Live Activity -->
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                         <i class="fas fa-history text-blue-400"></i>
@@ -337,15 +421,18 @@
                     </div>
                 </div>
 
+                <!-- Attendance Log -->
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                         <i class="fas fa-clipboard-list text-green-400"></i>
                         Attendance Log
                     </h3>
                     <div class="space-y-2 max-h-64 overflow-y-auto" id="attendance-log">
+                        <!-- Dynamic content -->
                     </div>
                 </div>
 
+                <!-- Quick Actions -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                         <i class="fas fa-bolt text-yellow-400"></i>
@@ -394,9 +481,8 @@
         let lastScanTime = 0;
         let fpsCounter = 0;
         let lastFpsTime = Date.now();
-        let faceMatcher; // Deklarasi faceMatcher di scope global
 
-        // Initialize App
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             initializeApp();
             createFloatingParticles();
@@ -405,78 +491,26 @@
             setInterval(updateFPS, 1000);
             loadVoices();
 
+            // Set system start time
             document.getElementById('system-start-time').textContent = new Date().toLocaleTimeString('id-ID');
         });
 
         function initializeApp() {
             addToLiveActivity('System initializing...', 'info');
+
             Promise.all([
-                faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-                faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-                faceapi.nets.faceRecognitionNet.loadFromUri('/models')
+                faceapi.nets.tinyFaceDetector.loadFromUri('/models')
             ]).then(() => {
-                addToLiveActivity('Face detection & recognition models loaded', 'success');
+                addToLiveActivity('Face detection model loaded', 'success');
                 startCamera();
-                // Panggil loadKnownFaces setelah kamera aktif dan model dimuat
-                // Ini akan memuat FaceMatcher saat aplikasi dimulai
-                loadKnownFaces().then(fm => {
-                    faceMatcher = fm;
-                    if (faceMatcher) {
-                        addToLiveActivity('Known faces loaded successfully', 'success');
-                    } else {
-                        addToLiveActivity('Failed to load known faces or no faces registered', 'warning');
-                    }
-                });
             }).catch(err => {
                 addToLiveActivity('Failed to load model: ' + err.message, 'error');
-                showNotification('error', 'Camera Error', 'Unable to load face-api models');
             });
         }
 
-        async function loadKnownFaces() {
-            try {
-                // Fetch known encodings from the Laravel backend
-                const response = await fetch("{{ route('face.encodings') }}", { // Asumsi ada route baru
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json' // Penting: memberitahu server untuk mengirim JSON
-                    },
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
-                }
-
-                const data = await response.json();
-
-                if (!data || !Array.isArray(data)) {
-                    console.error("Format respons encodings tidak valid:", data);
-                    return null;
-                }
-
-                const labeledDescriptors = data.map(({
-                    label,
-                    descriptors
-                }) => {
-                    // Pastikan setiap descriptor adalah Float32Array
-                    const descriptorArray = descriptors.map(arr => new Float32Array(arr));
-                    return new faceapi.LabeledFaceDescriptors(label, descriptorArray);
-                });
-
-                return new faceapi.FaceMatcher(labeledDescriptors, 0.6); // Threshold default 0.6
-            } catch (error) {
-                console.error("Error loading known faces:", error);
-                addToLiveActivity('Error loading known faces: ' + error.message, 'error');
-                showNotification('error', 'Data Error', 'Gagal memuat data wajah terdaftar');
-                return null;
-            }
-        }
-
-
         function createFloatingParticles() {
             const container = document.getElementById('particles-container');
+
             setInterval(() => {
                 if (Math.random() < 0.3) {
                     const particle = document.createElement('div');
@@ -484,6 +518,7 @@
                     particle.style.left = Math.random() * 100 + '%';
                     particle.style.animationDelay = Math.random() * 2 + 's';
                     container.appendChild(particle);
+
                     setTimeout(() => {
                         particle.remove();
                     }, 6000);
@@ -493,352 +528,231 @@
 
         function startCamera() {
             navigator.mediaDevices.getUserMedia({
-                video: {
-                    width: 640,
-                    height: 480
-                }
-            }).then(stream => {
-                video.srcObject = stream;
-                addToLiveActivity('Camera started successfully', 'success');
-                video.addEventListener('play', processFrame);
-            }).catch(err => {
-                addToLiveActivity('Camera access denied: ' + err.message, 'error');
-                showNotification('error', 'Camera Error', 'Unable to access camera');
-            });
+                    video: {
+                        width: 640,
+                        height: 480
+                    }
+                })
+                .then(stream => {
+                    video.srcObject = stream;
+                    addToLiveActivity('Camera started successfully', 'success');
+                })
+                .catch(err => {
+                    addToLiveActivity('Camera access denied: ' + err.message, 'error');
+                    showNotification('error', 'Camera Error', 'Unable to access camera');
+                });
         }
 
-        function processFrame() {
+        video.addEventListener('play', () => {
             const displaySize = {
-                width: video.videoWidth,
-                height: video.videoHeight
+                width: video.clientWidth,
+                height: video.clientHeight
             };
             faceapi.matchDimensions(overlay, displaySize);
 
-            setInterval(async () => {
-                // Set progress bar to 0 at the start of each detection cycle
-                document.getElementById('scan-progress').style.width = '0%';
-                document.getElementById('detection-status').textContent = 'Mendeteksi wajah...';
-                document.getElementById('confidence-level').textContent = '--';
+            const detectFaces = async () => {
+                const detections = await faceapi.detectAllFaces(video, new faceapi
+                    .TinyFaceDetectorOptions());
+                const resized = faceapi.resizeResults(detections, displaySize);
 
-
-                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-                    .withFaceLandmarks()
-                    .withFaceDescriptors();
-
-                const resizedDetections = faceapi.resizeResults(detections, displaySize);
                 ctx.clearRect(0, 0, overlay.width, overlay.height);
-
                 fpsCounter++;
-                if (resizedDetections.length > 0) {
-                    detectedFaces = resizedDetections.length;
-                    document.getElementById('faces-detected').textContent = detectedFaces;
-                    document.getElementById('detection-status').textContent = 'Wajah terdeteksi!';
-                    document.getElementById('scan-progress').style.width = '100%'; // Full progress on detection
 
-                    if (!autoScanDelay && faceMatcher) { // Pastikan faceMatcher sudah ada
+                if (resized.length > 0) {
+                    detectedFaces++;
+                    document.getElementById('faces-detected').textContent = detectedFaces;
+                    document.getElementById('detection-status').textContent =
+                        `${resized.length} face(s) detected`;
+
+                    if (!autoScanDelay) {
                         autoScanDelay = true;
                         const startTime = Date.now();
-                        await scan(resizedDetections);
-                        const scanTime = (Date.now() - startTime) / 1000;
-                        scanTimes.push(scanTime);
-                        updateStatistics();
-                        setTimeout(() => autoScanDelay = false, 3000); // 3 seconds delay for next scan
-                    } else if (!faceMatcher) {
-                        document.getElementById('detection-status').textContent = 'Model wajah belum dimuat...';
-                        showNotification('warning', 'Peringatan', 'Data wajah belum dimuat. Mohon tunggu.');
+                        scan().then(() => {
+                            const scanTime = (Date.now() - startTime) / 1000;
+                            scanTimes.push(scanTime);
+                            updateStatistics();
+                        });
+                        setTimeout(() => autoScanDelay = false, 3000);
                     }
                 } else {
-                    detectedFaces = 0;
-                    document.getElementById('faces-detected').textContent = detectedFaces;
-                    document.getElementById('detection-status').textContent = 'Posisikan wajah Anda';
-                    document.getElementById('absen-status').textContent = 'Menunggu deteksi wajah';
-                    document.getElementById('scan-progress').style.width = '0%';
+                    document.getElementById('detection-status').textContent = 'No face detected';
                 }
 
-                // Draw faces
-                if (resizedDetections.length > 0 && faceMatcher) {
-                    const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
-                    resizedDetections.forEach((det, i) => {
-                        const {
-                            x,
-                            y,
-                            width,
-                            height
-                        } = det.detection.box;
-                        const result = results[i];
-                        // Format label: remove confidence if not "unknown"
-                        const label = result.label === 'unknown' ?
-                            `Tidak Dikenali (${(result.distance * 100).toFixed(0)}%)` : result.label;
+                // Draw face rectangles with enhanced styling
+                resized.forEach((det, index) => {
+                    const {
+                        x,
+                        y,
+                        width,
+                        height
+                    } = det.box;
 
-                        ctx.strokeStyle = result.label === 'unknown' ? '#ef4444' :
-                        '#22c55e'; // Red for unknown, green for known
-                        ctx.lineWidth = 3;
-                        ctx.strokeRect(x, y, width, height);
+                    // Main rectangle
+                    ctx.strokeStyle = '#3b82f6';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(x, y, width, height);
 
-                        ctx.fillStyle = result.label === 'unknown' ? '#ef4444' : '#22c55e';
-                        ctx.font = '16px Inter';
-                        ctx.fillText(label, x, y - 10);
+                    // Corner decorations
+                    const cornerSize = 20;
+                    ctx.strokeStyle = '#60a5fa';
+                    ctx.lineWidth = 2;
 
-                        // Update confidence for the first detected face
-                        if (i === 0) {
-                            document.getElementById('confidence-level').textContent =
-                                `${(1 - result.distance).toFixed(2)}`;
-                        }
-                    });
-                }
-            }, 300); // Check for faces every 300ms
-        }
+                    // Top-left corner
+                    ctx.beginPath();
+                    ctx.moveTo(x, y + cornerSize);
+                    ctx.lineTo(x, y);
+                    ctx.lineTo(x + cornerSize, y);
+                    ctx.stroke();
 
+                    // Top-right corner
+                    ctx.beginPath();
+                    ctx.moveTo(x + width - cornerSize, y);
+                    ctx.lineTo(x + width, y);
+                    ctx.lineTo(x + width, y + cornerSize);
+                    ctx.stroke();
 
-        async function scan(detections) {
+                    // Bottom-left corner
+                    ctx.beginPath();
+                    ctx.moveTo(x, y + height - cornerSize);
+                    ctx.lineTo(x, y + height);
+                    ctx.lineTo(x + cornerSize, y + height);
+                    ctx.stroke();
+
+                    // Bottom-right corner
+                    ctx.beginPath();
+                    ctx.moveTo(x + width - cornerSize, y + height);
+                    ctx.lineTo(x + width, y + height);
+                    ctx.lineTo(x + width, y + height - cornerSize);
+                    ctx.stroke();
+
+                    // Face number label
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.fillRect(x, y - 30, 40, 25);
+                    ctx.fillStyle = 'white';
+                    ctx.font = '14px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`#${index + 1}`, x + 20, y - 10);
+                });
+
+                requestAnimationFrame(detectFaces);
+            };
+
+            detectFaces();
+        });
+
+        async function scan() {
             totalScans++;
             document.getElementById('total-scans').textContent = totalScans;
 
-            if (!faceMatcher) {
-                addToLiveActivity('FaceMatcher not initialized.', 'error');
-                showNotification('error', 'Error', 'FaceMatcher belum siap.');
-                return;
-            }
+            const scanProgress = document.getElementById('scan-progress');
+            scanProgress.style.width = '0%';
 
-            // Ambil hanya descriptor dari deteksi terbaru
-            const currentDescriptor = detections[0].descriptor; // Ambil descriptor wajah pertama
-
-            let formData = new FormData();
-            // Buat canvas sementara untuk mengambil gambar dari video
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = video.videoWidth;
-            tempCanvas.height = video.videoHeight;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.drawImage(video, 0, 0, tempCanvas.width, tempCanvas.height);
-
-            // Konversi gambar ke Blob
-            tempCanvas.toBlob(async (blob) => {
-                if (!blob) {
-                    addToLiveActivity('Failed to capture image blob.', 'error');
-                    showNotification('error', 'Camera Error', 'Gagal mengambil gambar dari kamera.');
-                    return;
+            // Animate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                scanProgress.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
                 }
-                formData.append('image', blob, 'face.jpg');
+            }, 50);
 
-                // Dapatkan CSRF token dari meta tag atau input tersembunyi
-                const csrfToken = document.querySelector('meta[name="csrf-token"]') ? document
-                    .querySelector('meta[name="csrf-token"]').content : '{{ csrf_token() }}';
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const c = canvas.getContext('2d');
+            c.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                try {
-                    const response = await fetch("{{ route('face.verify') }}", {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json' // Penting: memberitahu server untuk mengirim JSON
-                        },
-                        body: formData
-                    });
+            return new Promise((resolve) => {
+                canvas.toBlob(blob => {
+                    let formData = new FormData();
+                    formData.append('image', blob);
 
-                    // Cek apakah respons sukses (status code 2xx)
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error('Server response was not OK:', response.status, errorText);
-                        // Coba parse sebagai JSON, tapi fallback ke teks jika gagal
-                        let errorData;
-                        try {
-                            errorData = JSON.parse(errorText);
-                        } catch (e) {
-                            errorData = {
-                                message: `Server error: ${response.status} - ${errorText.substring(0, 100)}...`
-                            };
-                        }
-                        throw new Error(errorData.message || 'Unknown server error');
-                    }
+                    // Simulate API call for demo
+                    setTimeout(() => {
+                        const isSuccess = Math.random() > 0.3;
+                        const mockData = {
+                            status: isSuccess,
+                            nama: isSuccess ? 'John Doe' : null,
+                            message: isSuccess ? 'Presensi berhasil' :
+                                'Wajah tidak dikenali'
+                        };
 
-                    const data = await response.json();
-
-                    if (data.status) {
-                        successfulScans++;
-                        speak(`Halo ${data.nama}, absensi ${data.message}`, maleVoice);
-                        showUser(data.nama);
-                        logAttendance(data.nama, 'success', data.message);
-                        showNotification('success', 'Absensi Berhasil', `Absensi ${data.nama} sukses!`);
-                        document.getElementById('absen-status').textContent =
-                        `Absen Berhasil: ${data.nama}`;
-                        document.getElementById('absen-status').className =
-                            "bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold shadow-md";
-                    } else {
-                        speak(data.message || "Absensi gagal.", femaleVoice);
-                        showUser("Tidak Dikenali", true);
-                        logAttendance("Gagal", 'error', data.message || "Wajah tidak dikenali.");
-                        showNotification('error', 'Absensi Gagal', data.message || "Wajah tidak dikenali.");
-                        document.getElementById('absen-status').textContent =
-                        `Absen Gagal: ${data.message}`;
-                        document.getElementById('absen-status').className =
-                            "bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold shadow-md";
-                    }
-                } catch (error) {
-                    console.error("Fetch error:", error);
-                    speak("Terjadi kesalahan koneksi atau server.", femaleVoice);
-                    showUser("Error", true);
-                    logAttendance("Error", 'error', `Koneksi gagal: ${error.message}`);
-                    showNotification('error', 'Kesalahan', `Terjadi kesalahan: ${error.message}`);
-                    document.getElementById('absen-status').textContent = `Error: ${error.message}`;
-                    document.getElementById('absen-status').className =
-                        "bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold shadow-md";
-                }
-            }, 'image/jpeg', 0.8);
+                        handleScanResult(mockData);
+                        resolve();
+                    }, 1000);
+                }, 'image/jpeg');
+            });
         }
 
-        function showUser(name, isUnknown = false) {
-            const infoDiv = document.getElementById('user-info');
-            infoDiv.classList.remove('hidden'); // Ensure it's visible
+        function handleScanResult(data) {
+            const userInfo = document.getElementById('user-info');
+            const isSuccess = data.status;
+            const name = data.nama || "Unknown";
+            const message = data.message || "Processing...";
 
-            if (isUnknown) {
-                infoDiv.innerHTML = `
-                    <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-times text-white text-2xl"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-xl font-bold text-red-400">Akses Ditolak</div>
-                            <div class="text-sm opacity-80">Wajah tidak dikenali</div>
-                        </div>
-                    </div>`;
-            } else {
-                infoDiv.innerHTML = `
+            if (isSuccess) {
+                successfulScans++;
+                if (soundEnabled) {
+                    speak(`Halo ${name}. ${message}`, maleVoice);
+                }
+
+                userInfo.innerHTML = `
                     <div class="flex items-center gap-4">
                         <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
                             <i class="fas fa-check text-white text-2xl"></i>
                         </div>
                         <div class="text-left">
-                            <div class="text-xl font-bold text-green-400">Selamat datang, ${name}!</div>
-                            <div class="text-sm opacity-80">Presensi Berhasil</div>
+                            <div class="text-xl font-bold text-green-400">Welcome, ${name}!</div>
+                            <div class="text-sm opacity-80">${message}</div>
+                            <div class="text-xs opacity-60 mt-1">${new Date().toLocaleTimeString('id-ID')}</div>
                         </div>
-                    </div>`;
+                    </div>
+                `;
+
+                addToAttendanceLog(name, 'success');
+                showNotification('success', 'Success', `${name} berhasil presensi`);
+            } else {
+                if (soundEnabled) {
+                    speak(message, femaleVoice);
+                }
+
+                userInfo.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-times text-white text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xl font-bold text-red-400">Access Denied</div>
+                            <div class="text-sm opacity-80">${message}</div>
+                            <div class="text-xs opacity-60 mt-1">${new Date().toLocaleTimeString('id-ID')}</div>
+                        </div>
+                    </div>
+                `;
+
+                addToAttendanceLog('Unknown', 'failed');
+                showNotification('error', 'Failed', message);
             }
 
-            // Reset after 5 seconds
+            // Reset UI after 5 seconds
             setTimeout(() => {
-                infoDiv.innerHTML = `
+                userInfo.innerHTML = `
                     <div class="text-lg font-semibold mb-2">Scan wajah untuk presensi</div>
                     <div class="text-sm opacity-80">Posisikan wajah di depan kamera</div>
                     <div class="mt-4 flex justify-center">
                         <div class="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                    </div>`;
+                    </div>
+                `;
             }, 5000);
-        }
-
-        function logAttendance(name, type, message) {
-            const logItem = document.createElement('div');
-            const iconClass = type === 'success' ? 'fas fa-check' : 'fas fa-times';
-            const bgColorClass = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-
-            logItem.className = 'flex items-center gap-3 p-3 bg-white/5 rounded-xl animate-fade-in';
-            logItem.innerHTML = `
-                <div class="w-8 h-8 ${bgColorClass} rounded-full flex items-center justify-center">
-                    <i class="${iconClass} text-xs"></i>
-                </div>
-                <div class="flex-1">
-                    <div class="text-sm font-medium">${name}</div>
-                    <div class="text-xs opacity-60">${new Date().toLocaleTimeString('id-ID')} - ${message}</div>
-                </div>
-            `;
-            const logList = document.getElementById('attendance-log');
-            logList.insertBefore(logItem, logList.firstChild);
-            while (logList.children.length > 20) {
-                logList.removeChild(logList.lastChild);
-            }
         }
 
         function updateStatistics() {
             const successRate = totalScans > 0 ? Math.round((successfulScans / totalScans) * 100) : 0;
             const avgTime = scanTimes.length > 0 ? (scanTimes.reduce((a, b) => a + b, 0) / scanTimes.length).toFixed(1) : 0;
-            document.getElementById('success-rate').textContent = `${successRate}%`;
-            document.getElementById('avg-time').textContent = `${avgTime}s`;
+
+            document.getElementById('success-rate').textContent = successRate + '%';
+            document.getElementById('avg-time').textContent = avgTime + 's';
         }
-
-        function updateClock() {
-            const now = new Date();
-            const timeFormatter = new Intl.DateTimeFormat('id-ID', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                timeZone: 'Asia/Makassar'
-            });
-            const dateFormatter = new Intl.DateTimeFormat('id-ID', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                timeZone: 'Asia/Makassar'
-            });
-            document.getElementById('waktu').textContent = timeFormatter.format(now);
-            document.getElementById('tanggal').textContent = dateFormatter.format(now);
-        }
-
-        function toggleDark() {
-            document.documentElement.classList.toggle('dark');
-        }
-
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            const icon = document.getElementById('sound-icon');
-            const status = document.getElementById('sound-status');
-            icon.className = soundEnabled ? 'fas fa-volume-up text-blue-400' : 'fas fa-volume-mute text-red-400';
-            status.textContent = soundEnabled ? 'ON' : 'OFF';
-        }
-
-        function speak(text, voice = null) {
-            if (!soundEnabled) return;
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.lang = 'id-ID';
-            utter.voice = voice;
-            utter.rate = 1.05; // Make speech slightly faster
-            speechSynthesis.speak(utter);
-        }
-
-        function loadVoices() {
-            const voices = speechSynthesis.getVoices();
-            maleVoice = voices.find(v => v.lang === 'id-ID' && /male|laki/i.test(v.name)) ||
-                voices.find(v => v.lang.startsWith('id')) || voices.find(v => /male/i.test(v.name));
-            femaleVoice = voices.find(v => v.lang === 'id-ID' && /female|perempuan/i.test(v.name)) ||
-                voices.find(v => v.lang.startsWith('id')) || voices.find(v => /female/i.test(v.name));
-
-            // Fallback if specific voices not found
-            if (!maleVoice && voices.length > 0) maleVoice = voices[0];
-            if (!femaleVoice && voices.length > 1) femaleVoice = voices[1];
-            else if (!femaleVoice && voices.length > 0) femaleVoice = voices[0];
-        }
-
-        if ('speechSynthesis' in window) {
-            speechSynthesis.onvoiceschanged = loadVoices;
-        }
-
-        function showNotification(type, title, message) {
-            const notification = document.getElementById('notification');
-            const notificationIcon = notification.querySelector('i');
-            const notificationTitle = notification.querySelector('.font-semibold');
-            const notificationMessage = document.getElementById('notification-message');
-
-            notification.classList.remove('bg-green-500', 'bg-red-500', 'bg-yellow-500'); // Clear previous colors
-            notificationIcon.className = ''; // Clear previous icon
-
-            if (type === 'success') {
-                notification.classList.add('bg-green-500');
-                notificationIcon.classList.add('fas', 'fa-check-circle', 'text-xl');
-            } else if (type === 'error') {
-                notification.classList.add('bg-red-500');
-                notificationIcon.classList.add('fas', 'fa-times-circle', 'text-xl');
-            } else if (type === 'warning') {
-                notification.classList.add('bg-yellow-500');
-                notificationIcon.classList.add('fas', 'fa-exclamation-triangle', 'text-xl');
-            } else { // info
-                notification.classList.add('bg-blue-500');
-                notificationIcon.classList.add('fas', 'fa-info-circle', 'text-xl');
-            }
-
-            notificationTitle.textContent = title;
-            notificationMessage.textContent = message;
-            notification.classList.add('show');
-            setTimeout(() => notification.classList.remove('show'), 4000); // Notification disappears after 4 seconds
-        }
-
 
         function updateFPS() {
             const now = Date.now();
@@ -850,6 +764,8 @@
 
         function addToLiveActivity(message, type = 'info') {
             const liveActivity = document.getElementById('live-activity');
+            const time = new Date().toLocaleTimeString('id-ID');
+
             const icons = {
                 info: 'fas fa-info-circle text-blue-400',
                 success: 'fas fa-check-circle text-green-400',
@@ -865,55 +781,157 @@
                 </div>
                 <div class="flex-1">
                     <div class="text-sm font-medium">${message}</div>
-                    <div class="text-xs opacity-60">${new Date().toLocaleTimeString('id-ID')}</div>
+                    <div class="text-xs opacity-60">${time}</div>
                 </div>
             `;
+
             liveActivity.insertBefore(activityItem, liveActivity.firstChild);
+
+            // Keep only last 10 activities
             while (liveActivity.children.length > 10) {
                 liveActivity.removeChild(liveActivity.lastChild);
             }
         }
 
+        function addToAttendanceLog(name, status) {
+            const attendanceLog = document.getElementById('attendance-log');
+            const time = new Date().toLocaleTimeString('id-ID');
+
+            const logItem = document.createElement('div');
+            logItem.className = 'flex items-center gap-3 p-3 bg-white/5 rounded-xl animate-fade-in';
+            logItem.innerHTML = `
+                <div class="w-8 h-8 bg-${status === 'success' ? 'green' : 'red'}-500 rounded-full flex items-center justify-center">
+                    <i class="fas fa-${status === 'success' ? 'check' : 'times'} text-xs"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium">${name}</div>
+                    <div class="text-xs opacity-60">${time}</div>
+                </div>
+                <div class="text-xs ${status === 'success' ? 'text-green-400' : 'text-red-400'} font-medium">
+                    ${status === 'success' ? 'SUCCESS' : 'FAILED'}
+                </div>
+            `;
+
+            attendanceLog.insertBefore(logItem, attendanceLog.firstChild);
+
+            // Keep only last 20 logs
+            while (attendanceLog.children.length > 20) {
+                attendanceLog.removeChild(attendanceLog.lastChild);
+            }
+        }
+
+        function showNotification(type, title, message) {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notification-message');
+
+            notification.className = `notification ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+            notificationMessage.textContent = message;
+
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Asia/Makassar',
+                hour12: false
+            };
+
+            const dateOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                timeZone: 'Asia/Makassar'
+            };
+
+            const timeFormatter = new Intl.DateTimeFormat('id-ID', timeOptions);
+            const dateFormatter = new Intl.DateTimeFormat('id-ID', dateOptions);
+
+            document.getElementById('waktu').textContent = timeFormatter.format(now);
+            document.getElementById('tanggal').textContent = dateFormatter.format(now);
+
+            // Update status based on time
+            const hour = now.getHours();
+            let status = '';
+            if (hour >= 6 && hour < 12) {
+                status = '🌅 Jam Masuk';
+            } else if (hour >= 12 && hour < 18) {
+                status = '🌞 Jam Kerja';
+            } else {
+                status = '🌙 Jam Pulang';
+            }
+            document.getElementById('absen-status').textContent = status;
+        }
+
+        function toggleDark() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            addToLiveActivity(`Dark mode ${isDark ? 'enabled' : 'disabled'}`, 'info');
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const soundIcon = document.getElementById('sound-icon');
+            const soundStatus = document.getElementById('sound-status');
+
+            if (soundEnabled) {
+                soundIcon.className = 'fas fa-volume-up text-blue-400';
+                soundStatus.textContent = 'ON';
+            } else {
+                soundIcon.className = 'fas fa-volume-mute text-red-400';
+                soundStatus.textContent = 'OFF';
+            }
+
+            addToLiveActivity(`Sound ${soundEnabled ? 'enabled' : 'disabled'}`, 'info');
+        }
+
         function testCameraAndModel() {
             addToLiveActivity('Testing camera and model...', 'info');
+
             setTimeout(() => {
                 const isWorking = video.srcObject && video.videoWidth > 0;
                 if (isWorking) {
                     addToLiveActivity('Camera and model test passed', 'success');
-                    showNotification('success', 'Tes Berhasil', 'Kamera dan deteksi wajah berjalan lancar');
+                    showNotification('success', 'Test Passed', 'Camera and face detection are working properly');
                 } else {
                     addToLiveActivity('Camera test failed', 'error');
-                    showNotification('error', 'Tes Gagal', 'Masalah pada kamera atau model');
+                    showNotification('error', 'Test Failed', 'Camera or model issues detected');
                 }
             }, 1500);
         }
 
         function calibrateCamera() {
             addToLiveActivity('Calibrating camera...', 'info');
-            let progress = 0;
-            document.getElementById('scan-progress').style.width = '0%'; // Reset progress
-            document.getElementById('detection-status').textContent = 'Kalibrasi dimulai...';
 
-            const interval = setInterval(() => {
+            // Simulate calibration process
+            let progress = 0;
+            const calibrationInterval = setInterval(() => {
                 progress += 10;
                 if (progress <= 100) {
-                    document.getElementById('scan-progress').style.width = `${progress}%`;
-                    document.getElementById('detection-status').textContent = `Kalibrasi: ${progress}%`;
-                    addToLiveActivity(`Progress: ${progress}%`, 'info');
+                    addToLiveActivity(`Calibration progress: ${progress}%`, 'info');
                 } else {
-                    clearInterval(interval);
-                    document.getElementById('scan-progress').style.width = '100%';
-                    document.getElementById('detection-status').textContent = 'Kalibrasi selesai.';
-                    addToLiveActivity('Calibration completed', 'success');
-                    showNotification('success', 'Kalibrasi Selesai', 'Kamera telah dikalibrasi');
+                    clearInterval(calibrationInterval);
+                    addToLiveActivity('Camera calibration completed', 'success');
+                    showNotification('success', 'Calibration Complete', 'Camera has been calibrated successfully');
                 }
             }, 200);
         }
 
         function exportData() {
+            addToLiveActivity('Exporting attendance data...', 'info');
+
+            // Simulate data export
             const data = {
-                totalScans,
-                successfulScans,
+                totalScans: totalScans,
+                successfulScans: successfulScans,
                 successRate: totalScans > 0 ? Math.round((successfulScans / totalScans) * 100) : 0,
                 averageTime: scanTimes.length > 0 ? (scanTimes.reduce((a, b) => a + b, 0) / scanTimes.length).toFixed(
                     1) : 0,
@@ -930,8 +948,9 @@
             a.download = `attendance_data_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
             URL.revokeObjectURL(url);
+
             addToLiveActivity('Data exported successfully', 'success');
-            showNotification('success', 'Ekspor Data', 'Data presensi telah diekspor');
+            showNotification('success', 'Export Complete', 'Attendance data has been exported');
         }
 
         function clearLog() {
@@ -945,40 +964,118 @@
                         <div class="text-sm font-medium">Logs cleared</div>
                         <div class="text-xs opacity-60">${new Date().toLocaleTimeString('id-ID')}</div>
                     </div>
-                </div>`;
+                </div>
+            `;
+
+            // Reset statistics
             totalScans = 0;
             successfulScans = 0;
             detectedFaces = 0;
             scanTimes = [];
+
             document.getElementById('total-scans').textContent = '0';
             document.getElementById('success-rate').textContent = '0%';
             document.getElementById('avg-time').textContent = '0.0s';
             document.getElementById('faces-detected').textContent = '0';
-            showNotification('success', 'Log Dihapus', 'Semua log dan statistik telah dibersihkan');
+
+            showNotification('success', 'Cleared', 'All logs and statistics have been cleared');
         }
 
         function showStats() {
             const stats = {
-                totalScans,
-                successfulScans,
+                totalScans: totalScans,
+                successfulScans: successfulScans,
                 failedScans: totalScans - successfulScans,
                 successRate: totalScans > 0 ? Math.round((successfulScans / totalScans) * 100) : 0,
                 averageTime: scanTimes.length > 0 ? (scanTimes.reduce((a, b) => a + b, 0) / scanTimes.length).toFixed(
-                    1) : 0
+                    1) : 0,
+                facesDetected: detectedFaces,
+                uptime: Math.floor((Date.now() - performance.timing.navigationStart) / 1000)
             };
-            alert(
-                `📊 Statistik Presensi:\n• Total Scan: ${stats.totalScans}\n• Sukses: ${stats.successfulScans}\n• Gagal: ${stats.failedScans}\n• Tingkat Keberhasilan: ${stats.successRate}%\n• Rata-Rata Waktu: ${stats.averageTime}s`
-            );
+
+            const statsMessage = `
+                📊 Statistics Summary:
+                • Total Scans: ${stats.totalScans}
+                • Successful: ${stats.successfulScans}
+                • Failed: ${stats.failedScans}
+                • Success Rate: ${stats.successRate}%
+                • Average Time: ${stats.averageTime}s
+                • Faces Detected: ${stats.facesDetected}
+                • Uptime: ${stats.uptime}s
+            `;
+
+            alert(statsMessage);
+            addToLiveActivity('Statistics displayed', 'info');
         }
 
         function settings() {
-            const options = ['Resolusi Kamera', 'Sensitivitas Deteksi', 'Pengaturan Suara'];
-            const selected = prompt('Pilih pengaturan:\n' + options.map((o, i) => `${i + 1}. ${o}`).join('\n'));
-            if (selected) {
-                addToLiveActivity(`Pengaturan dipilih: Opsi ${selected}`, 'info');
-                showNotification('info', 'Pengaturan', `Opsi ${selected} dipilih`);
+            const settingsOptions = [
+                'Camera Resolution',
+                'Detection Sensitivity',
+                'Audio Settings',
+                'Theme Settings',
+                'Export Settings'
+            ];
+
+            const selectedSetting = prompt('Select setting to configure:\n' + settingsOptions.map((opt, i) =>
+                `${i + 1}. ${opt}`).join('\n'));
+
+            if (selectedSetting) {
+                addToLiveActivity(`Settings accessed: Option ${selectedSetting}`, 'info');
+                showNotification('info', 'Settings', `Configuration option ${selectedSetting} selected`);
             }
         }
+
+        function loadVoices() {
+            const voices = speechSynthesis.getVoices();
+            maleVoice = voices.find(v => v.lang === 'id-ID' && /laki|male/i.test(v.name)) ||
+                voices.find(v => v.lang.startsWith('id')) ||
+                voices.find(v => /male/i.test(v.name));
+            femaleVoice = voices.find(v => v.lang === 'id-ID' && /perempuan|female/i.test(v.name)) ||
+                voices.find(v => v.lang.startsWith('id')) ||
+                voices.find(v => /female/i.test(v.name));
+        }
+
+        function speak(text, voice = null) {
+            if (!soundEnabled) return;
+
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'id-ID';
+            utter.voice = voice;
+            utter.rate = 0.9;
+            utter.pitch = 1;
+            speechSynthesis.speak(utter);
+        }
+
+        // Voice loading
+        if (typeof speechSynthesis !== 'undefined') {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'd' && e.ctrlKey) {
+                e.preventDefault();
+                toggleDark();
+            } else if (e.key === 's' && e.ctrlKey) {
+                e.preventDefault();
+                toggleSound();
+            } else if (e.key === 't' && e.ctrlKey) {
+                e.preventDefault();
+                testCameraAndModel();
+            } else if (e.key === 'c' && e.ctrlKey) {
+                e.preventDefault();
+                calibrateCamera();
+            }
+        });
+
+        // Add welcome message
+        setTimeout(() => {
+            addToLiveActivity('Welcome to E-Presensi Face Recognition System', 'success');
+            if (soundEnabled) {
+                speak('Sistem E-Presensi siap digunakan', maleVoice);
+            }
+        }, 2000);
     </script>
 </body>
 

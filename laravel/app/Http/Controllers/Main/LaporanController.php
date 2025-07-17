@@ -33,20 +33,20 @@ class LaporanController extends Controller
         // dd($kategori);
 
         if ($kategori == 'absensi') {
-            // Validasi input
             $request->validate([
                 'start_date' => 'required|date',
                 'end_date' => 'required|date',
             ]);
 
-            // Query data kehadiran
-            $data = Kehadiran::whereBetween('tanggal_absensi', [$request->start_date, $request->end_date])
+            // Query data kehadiran dan group by tanggal dan pegawai
+            $data = Kehadiran::with('pegawai')
+                ->whereBetween('tanggal_absensi', [$request->start_date, $request->end_date])
                 ->when($request->pegawai, function ($query) use ($request) {
                     $query->where('pegawai_id', $request->pegawai);
                 })
-                ->get();
+                ->get()
+                ->groupBy(['pegawai_id', 'tanggal_absensi']);
 
-            // Generate PDF absensi
             $pdf = Pdf::loadView('main.laporan.absensi_pdf', compact('data'))
                 ->setPaper('A4', 'portrait');
         } else {

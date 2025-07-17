@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pegawai_id')->references('id')->on('pegawai')->onDelete('cascade');
             $table->json('encodings');
+            $table->json('face_images');
             $table->timestamps();
         });
     }
