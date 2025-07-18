@@ -190,9 +190,9 @@
                                 </div>
                             </div>
                             <div class="message-body">
-                                {{-- <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">
+                                <a href="{{ route('profile.index') }}" class="p-2 dropdown-item h6 rounded-1">
                                     My Profile
-                                </a> --}}
+                                </a>
                                 <a href="{{ route('logout') }}" class="p-2 dropdown-item h6 rounded-1">
                                     Sign Out
                                 </a>

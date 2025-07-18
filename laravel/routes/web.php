@@ -7,6 +7,7 @@ use App\Http\Controllers\Main\KehadiranController;
 use App\Http\Controllers\Main\LaporanController;
 use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Main\PegawaiController;
+use App\Http\Controllers\Main\ProfileController;
 use App\Http\Controllers\Main\RuleController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,12 @@ Route::middleware('auth')->group(function () {
         Route::middleware('role:pegawai')->prefix('pegawai')->group(function () {
             Route::get('/dashboard', 'dashboardPegawai')->name('dashboard.pegawai');
         });
+    });
+
+    // PROFILE
+    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+        Route::get('/', 'index')->name('profile.index');
+        Route::put('/update/{id}', 'update')->name('profile.update');
     });
 
     // PEGAWAI

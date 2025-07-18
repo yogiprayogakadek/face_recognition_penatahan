@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
-class UserStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -25,6 +26,12 @@ class UserStoreRequest extends FormRequest
             'status_perkawinan' => 'required|in:belum kawin,kawin,cerai hidup,cerai mati',
             'pendidikan_terakhir' => 'required|in:tidak sekolah,sd,smp,sma,d1,d2,d3,d4,s1,s2,s3',
             'email' => 'required|email|unique:users,email,' . $this->id,
+
+            // Validasi hanya jika ingin ganti password
+            'old_password' => 'required_with:new_password|nullable|string|min:8',
+            'new_password' => 'nullable|string|min:8|different:old_password|required_with:old_password',
+            'confirm_password' => 'required_with:new_password|nullable|string|min:8|same:new_password',
+
             'alamat' => 'required|string|max:500',
             'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
@@ -52,6 +59,28 @@ class UserStoreRequest extends FormRequest
             'foto_profil.image' => 'File foto harus berupa gambar.',
             'foto_profil.mimes' => 'Format foto harus jpeg, jpg, atau png.',
             'foto_profil.max' => 'Ukuran foto maksimal 2MB.',
+
+            'old_password.required_with' => 'Password lama wajib diisi jika ingin mengganti password.',
+            'old_password.min' => 'Password lama minimal 8 karakter.',
+            'new_password.required_with' => 'Password baru wajib diisi jika ingin mengganti password.',
+            'new_password.min' => 'Password baru minimal 8 karakter.',
+            'new_password.different' => 'Password baru harus berbeda dari password lama.',
+            'confirm_password.required_with' => 'Konfirmasi password wajib diisi jika mengganti password.',
+            'confirm_password.min' => 'Konfirmasi password minimal 8 karakter.',
+            'confirm_password.same' => 'Konfirmasi password harus sama dengan password baru.',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            // Jika user ingin mengganti password
+            if ($this->filled('new_password') && $this->filled('old_password')) {
+                $user = $this->user();
+                if (!Hash::check($this->old_password, $user->password)) {
+                    $validator->errors()->add('old_password', 'Password lama tidak sesuai.');
+                }
+            }
+        });
     }
 }
