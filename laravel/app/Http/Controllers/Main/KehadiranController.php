@@ -45,7 +45,12 @@ class KehadiranController extends Controller
     public function indexPegawai()
     {
         $pegawai_id = auth()->user()->pegawai->id;
-        $data = Kehadiran::where('pegawai_id', $pegawai_id)->get();
+
+        // Ambil semua data kehadiran lalu groupBy tanggal_absensi
+        $data = Kehadiran::where('pegawai_id', $pegawai_id)
+            ->orderBy('tanggal_absensi')
+            ->get()
+            ->groupBy('tanggal_absensi');
 
         return view('main.kehadiran.pegawai.index', compact('data'));
     }
