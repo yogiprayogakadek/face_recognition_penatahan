@@ -39,6 +39,7 @@ class ProfileController extends Controller
             // Update data pegawai
             $pegawaiData = [
                 'nama' => $request->nama,
+                'jabatan' => $request->jabatan,
                 'nomor_telp' => $request->nomor_telp,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,

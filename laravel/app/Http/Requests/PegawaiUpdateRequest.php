@@ -25,7 +25,7 @@ class PegawaiUpdateRequest extends FormRequest
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:laki-laki,perempuan',
             'status_perkawinan' => 'required|in:belum kawin,kawin,cerai hidup,cerai mati',
-            'pendidikan_terakhir' => 'required|in:tidak sekolah,sd,smp,sma,d1,d2,d3,d4,s1,s2,s3',
+            'pendidikan_terakhir' => 'required|in:tidak sekolah,sd,smp,sma,slta,d1,d2,d3,d4,s1,s2,s3',
             'email' => [
                 'required',
                 'email',

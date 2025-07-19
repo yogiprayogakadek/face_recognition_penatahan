@@ -451,6 +451,27 @@
                                 </div>
                             </div>
 
+                            {{-- Jabatan --}}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jabatan" class="form-label">Jabatan</label>
+                                    <select disabled name="jabatan" id="jabatan"
+                                        class="form-control @error('jabatan') is-invalid @enderror">
+                                        <option value="">-- Pilih jabatan --</option>
+                                        @foreach (jabatan() as $jabatan)
+                                            <option value="{{ $jabatan }}"
+                                                {{ old('jabatan', $user->pegawai->jabatan) == $jabatan ? 'selected' : '' }}>
+                                                {{ ucwords($jabatan) }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('jabatan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             {{-- Nomor Telp --}}
                             <div class="col-md-6">
                                 <div class="form-group">
