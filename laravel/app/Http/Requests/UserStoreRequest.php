@@ -15,6 +15,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
             'nomor_telp' => [
                 'required',
                 'regex:/^(^\+62|62|0)(\d{8,13})$/'
@@ -34,6 +35,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'nama.required' => 'Nama wajib diisi.',
+            'jabatan.required' => 'Jabatan wajib diisi.',
             'nomor_telp.required' => 'Nomor telepon wajib diisi.',
             'nomor_telp.regex' => 'Format nomor telepon tidak valid. Gunakan format Indonesia, contoh: 081234567890 atau +6281234567890.',
             'tempat_lahir.required' => 'Tempat lahir wajib diisi.',

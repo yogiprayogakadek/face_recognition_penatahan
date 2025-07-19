@@ -21,8 +21,6 @@ class PegawaiController extends Controller
         return view('main.pegawai.index', compact('data'));
     }
 
-
-
     public function create()
     {
         return view('main.pegawai.create');
@@ -49,6 +47,7 @@ class PegawaiController extends Controller
             // inisialisasi data pegawai
             $pegawai = [
                 'nama' => $request->nama,
+                'jabatan' => $request->jabatan,
                 'nomor_telp' => $request->nomor_telp,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
@@ -104,6 +103,7 @@ class PegawaiController extends Controller
             // Update data pegawai
             $pegawai->update([
                 'nama' => $data['nama'],
+                'jabatan' => $data['jabatan'],
                 'nomor_telp' => $data['nomor_telp'],
                 'tempat_lahir' => $data['tempat_lahir'],
                 'tanggal_lahir' => $data['tanggal_lahir'],

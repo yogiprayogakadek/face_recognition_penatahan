@@ -47,6 +47,27 @@
                         </div>
                     </div>
 
+                    {{-- Jabatan --}}
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <select name="jabatan" id="jabatan"
+                                class="form-control @error('jabatan') is-invalid @enderror">
+                                <option value="">-- Pilih jabatan --</option>
+                                @foreach (jabatan() as $jabatan)
+                                    <option value="{{ $jabatan }}"
+                                        {{ old('jabatan', $pegawai->jabatan) == $jabatan ? 'selected' : '' }}>
+                                        {{ ucwords($jabatan) }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+                            @error('jabatan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- Nomor Telepon --}}
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -181,18 +202,6 @@
                         </div>
                     </div>
 
-                    {{-- Alamat --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Alamat</label>
-                            <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror"
-                                placeholder="Masukkan alamat" rows="5">{{ old('alamat', $pegawai->alamat) }}</textarea>
-                            @error('alamat')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
                     {{-- Foto Profil --}}
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -205,6 +214,18 @@
                                 </small>
                             @endif
                             @error('foto_profil')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Alamat --}}
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Alamat</label>
+                            <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror"
+                                placeholder="Masukkan alamat" rows="5">{{ old('alamat', $pegawai->alamat) }}</textarea>
+                            @error('alamat')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

@@ -29,6 +29,7 @@
                     <thead>
                         <tr>
                             <th>Nama</th>
+                            <th>Jabatan</th>
                             <th>Tempat Lahir</th>
                             <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
@@ -57,6 +58,7 @@
                                         <h6 class="mb-0"> {{ $data->nama }} </h6>
                                     </div>
                                 </td>
+                                <td>{{ ucwords($data->jabatan) }}</td>
                                 <td>{{ $data->tempat_lahir }}</td>
                                 <td>{{ $data->tanggal_lahir }}</td>
                                 <td>{{ ucfirst($data->jenis_kelamin) }}</td>

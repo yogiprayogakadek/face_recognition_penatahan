@@ -55,6 +55,23 @@
                         </div>
                     </div>
 
+                    {{-- Jabatan --}}
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <select name="jabatan" id="jabatan"
+                                class="form-control @error('jabatan') is-invalid @enderror">
+                                <option value="">-- Pilih jabatan --</option>
+                                @foreach (jabatan() as $jabatan)
+                                    <option value="{{ old('jabatan', $jabatan) }}">{{ ucwords($jabatan) }}</option>
+                                @endforeach
+                            </select>
+                            @error('jabatan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- Nomor Telp --}}
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -148,9 +165,11 @@
                                 </option>
                                 <option value="smp" {{ old('pendidikan_terakhir') == 'smp' ? 'selected' : '' }}>SMP /
                                     MTs</option>
-                                <option value="sma" {{ old('pendidikan_terakhir') == 'sma' ? 'selected' : '' }}>SMA / MA
+                                <option value="sma" {{ old('pendidikan_terakhir') == 'sma' ? 'selected' : '' }}>SMA /
+                                    MA
                                     / SMK</option>
-                                <option value="d1" {{ old('pendidikan_terakhir') == 'd1' ? 'selected' : '' }}>Diploma 1
+                                <option value="d1" {{ old('pendidikan_terakhir') == 'd1' ? 'selected' : '' }}>Diploma
+                                    1
                                     (D1)</option>
                                 <option value="d2" {{ old('pendidikan_terakhir') == 'd2' ? 'selected' : '' }}>Diploma
                                     2
@@ -187,18 +206,6 @@
                         </div>
                     </div>
 
-                    {{-- Alamat --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Alamat</label>
-                            <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="5"
-                                placeholder="Masukkan alamat">{{ old('alamat') }}</textarea>
-                            @error('alamat')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
                     {{-- Foto Profil --}}
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -206,6 +213,18 @@
                             <input type="file" id="foto_profil" name="foto_profil"
                                 class="form-control @error('foto_profil') is-invalid @enderror">
                             @error('foto_profil')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Alamat --}}
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Alamat</label>
+                            <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="5"
+                                placeholder="Masukkan alamat">{{ old('alamat') }}</textarea>
+                            @error('alamat')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
