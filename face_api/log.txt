@@ -1,0 +1,148 @@
+2025-07-14 00:16:38,178 [INFO] Menerima permintaan register_face untuk pegawai_id: 1
+2025-07-14 00:16:38,181 [INFO] Jumlah gambar diterima: 1
+2025-07-14 00:16:38,185 [INFO] Memproses gambar ke-1 (Nama file: image0.jpg)
+2025-07-14 00:16:38,195 [INFO] ✔️ Gambar ke-1 berhasil dibuka.
+2025-07-14 00:16:38,197 [INFO] Gambar ke-1: Tipe: RGB, Ukuran: (640, 480)
+2025-07-14 00:16:39,151 [WARNING] ⚠️ Gambar ke-1: Tidak ada wajah terdeteksi dalam gambar ini.
+2025-07-14 00:16:39,152 [ERROR] ❌ Setelah memproses semua gambar, tidak ada wajah yang terdeteksi.
+2025-07-14 00:16:39,154 [INFO] 127.0.0.1 - - [14/Jul/2025 00:16:39] "[31m[1mPOST /register_face HTTP/1.1[0m" 400 -
+2025-07-14 00:19:19,736 [INFO]  * Detected change in 'E:\\Work\\Website\\Project\\Undira\\FaceRecognition_Penatahan\\face_api\\test\\test.py', reloading
+2025-07-14 00:19:19,992 [INFO]  * Restarting with stat
+2025-07-14 00:19:25,495 [WARNING]  * Debugger is active!
+2025-07-14 00:19:25,507 [INFO]  * Debugger PIN: 980-616-995
+2025-07-14 00:19:54,939 [INFO]  * Detected change in 'E:\\Work\\Website\\Project\\Undira\\FaceRecognition_Penatahan\\face_api\\test\\test.py', reloading
+2025-07-14 00:19:55,273 [INFO]  * Restarting with stat
+2025-07-14 00:19:59,572 [WARNING]  * Debugger is active!
+2025-07-14 00:19:59,584 [INFO]  * Debugger PIN: 980-616-995
+2025-07-14 00:21:59,127 [INFO] Menerima permintaan register_face untuk pegawai_id: 1
+2025-07-14 00:21:59,127 [INFO] Jumlah gambar diterima: 1
+2025-07-14 00:21:59,127 [INFO] Memproses gambar ke-1 (Nama file: image0.jpg)
+2025-07-14 00:21:59,209 [INFO] ✔️ Gambar ke-1 berhasil dibuka.
+2025-07-14 00:21:59,210 [INFO] Gambar ke-1: Tipe: RGB, Ukuran: (640, 480)
+2025-07-14 00:22:01,921 [INFO] ✅ Gambar ke-1: Face encoding berhasil diambil (1 wajah terdeteksi).
+2025-07-14 00:22:01,921 [INFO] Berhasil menghitung rata-rata encoding dari 1 wajah.
+2025-07-14 00:22:01,941 [INFO] Memuat 0 encoding dari database untuk pemeriksaan duplikat.
+2025-07-14 00:22:01,941 [INFO] Pendaftaran wajah untuk pegawai_id 1 berhasil.
+2025-07-14 00:22:01,941 [INFO] 127.0.0.1 - - [14/Jul/2025 00:22:01] "POST /register_face HTTP/1.1" 200 -
+2025-07-19 21:47:18,664 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-07-19 21:47:18,665 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-19 21:47:18,667 [INFO]  * Restarting with stat
+2025-07-19 21:47:22,759 [WARNING]  * Debugger is active!
+2025-07-19 21:47:22,768 [INFO]  * Debugger PIN: 426-559-410
+2025-07-19 21:48:29,810 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-19 21:48:29,810 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-19 21:48:29,812 [INFO]  * Restarting with stat
+2025-07-19 21:48:34,906 [WARNING]  * Debugger is active!
+2025-07-19 21:48:34,912 [INFO]  * Debugger PIN: 426-559-410
+2025-07-19 21:48:51,313 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:48:51,313 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:48:52,369 [INFO] ✅ Face encoding berhasil diambil.
+2025-07-19 21:48:52,489 [INFO] 127.0.0.1 - - [19/Jul/2025 21:48:52] "POST /register_face HTTP/1.1" 200 -
+2025-07-19 21:50:37,987 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:50:37,988 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:50:39,089 [INFO] ✅ Face encoding berhasil diambil.
+2025-07-19 21:50:39,094 [INFO] 127.0.0.1 - - [19/Jul/2025 21:50:39] "POST /register_face HTTP/1.1" 200 -
+2025-07-19 21:55:40,085 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:55:40,086 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:55:41,043 [INFO] ✅ Face encoding berhasil diambil.
+2025-07-19 21:55:41,048 [INFO] 127.0.0.1 - - [19/Jul/2025 21:55:41] "[31m[1mPOST /register_face HTTP/1.1[0m" 409 -
+2025-07-19 21:56:07,881 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:56:07,881 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:56:08,383 [WARNING] ⚠️ Tidak ada wajah terdeteksi dalam gambar.
+2025-07-19 21:56:08,384 [INFO] 127.0.0.1 - - [19/Jul/2025 21:56:08] "[31m[1mPOST /register_face HTTP/1.1[0m" 400 -
+2025-07-19 21:56:31,886 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:56:31,887 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:56:32,242 [WARNING] ⚠️ Tidak ada wajah terdeteksi dalam gambar.
+2025-07-19 21:56:32,243 [INFO] 127.0.0.1 - - [19/Jul/2025 21:56:32] "[31m[1mPOST /register_face HTTP/1.1[0m" 400 -
+2025-07-19 21:56:44,298 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:56:44,314 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:56:44,769 [WARNING] ⚠️ Tidak ada wajah terdeteksi dalam gambar.
+2025-07-19 21:56:44,771 [INFO] 127.0.0.1 - - [19/Jul/2025 21:56:44] "[31m[1mPOST /register_face HTTP/1.1[0m" 400 -
+2025-07-19 21:57:33,035 [INFO] ✔️ Gambar berhasil dibuka.
+2025-07-19 21:57:33,035 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-07-19 21:57:34,144 [INFO] ✅ Face encoding berhasil diambil.
+2025-07-19 21:57:34,155 [INFO] 127.0.0.1 - - [19/Jul/2025 21:57:34] "POST /register_face HTTP/1.1" 200 -
+2025-07-31 19:10:48,694 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-31 19:10:48,694 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-31 19:10:48,694 [INFO]  * Restarting with stat
+2025-07-31 19:10:51,561 [WARNING]  * Debugger is active!
+2025-07-31 19:10:51,586 [INFO]  * Debugger PIN: 426-559-410
+2025-08-20 16:40:39,124 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-20 16:40:39,126 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-20 16:40:39,127 [INFO]  * Restarting with stat
+2025-08-20 16:40:43,273 [WARNING]  * Debugger is active!
+2025-08-20 16:40:43,273 [INFO]  * Debugger PIN: 426-559-410
+2025-08-20 16:40:44,233 [INFO] ✔️ Gambar berhasil dibuka.
+2025-08-20 16:40:44,233 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-08-20 16:40:45,190 [INFO] ✅ Face encoding berhasil diambil.
+2025-08-20 16:40:45,327 [INFO] 127.0.0.1 - - [20/Aug/2025 16:40:45] "[31m[1mPOST /register_face HTTP/1.1[0m" 409 -
+2025-08-20 18:22:34,585 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5500
+2025-08-20 18:22:34,589 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-20 18:22:34,598 [INFO]  * Restarting with stat
+2025-08-20 18:22:38,149 [WARNING]  * Debugger is active!
+2025-08-20 18:22:38,168 [INFO]  * Debugger PIN: 980-616-995
+2025-08-20 18:37:49,639 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5500
+2025-08-20 18:37:49,642 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-20 18:37:49,646 [INFO]  * Restarting with stat
+2025-08-20 18:37:55,341 [WARNING]  * Debugger is active!
+2025-08-20 18:37:55,353 [INFO]  * Debugger PIN: 980-616-995
+2025-08-20 18:38:07,549 [INFO]  * Detected change in 'C:\\Users\\yogip\\Documents\\c54\\face_recognition_penatahan\\face_api\\app.py', reloading
+2025-08-20 18:38:07,931 [INFO]  * Restarting with stat
+2025-08-20 18:38:13,537 [WARNING]  * Debugger is active!
+2025-08-20 18:38:13,540 [INFO]  * Debugger PIN: 980-616-995
+2025-08-20 18:39:34,395 [INFO] ✔️ Gambar berhasil dibuka.
+2025-08-20 18:39:34,395 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-08-20 18:39:36,747 [INFO] ✅ Face encoding berhasil diambil.
+2025-08-20 18:39:36,772 [INFO] 127.0.0.1 - - [20/Aug/2025 18:39:36] "POST /register_face HTTP/1.1" 200 -
+2025-08-20 19:46:30,512 [INFO] 127.0.0.1 - - [20/Aug/2025 19:46:30] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:46:44,177 [INFO] 127.0.0.1 - - [20/Aug/2025 19:46:44] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:47:43,558 [INFO] 127.0.0.1 - - [20/Aug/2025 19:47:43] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:50:02,009 [INFO] 127.0.0.1 - - [20/Aug/2025 19:50:02] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-08-20 19:50:25,760 [INFO] 127.0.0.1 - - [20/Aug/2025 19:50:25] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:50:36,530 [INFO] 127.0.0.1 - - [20/Aug/2025 19:50:36] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:50:42,286 [INFO] 127.0.0.1 - - [20/Aug/2025 19:50:42] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-08-20 19:50:47,644 [INFO] 127.0.0.1 - - [20/Aug/2025 19:50:47] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-08-20 19:51:14,656 [INFO] 127.0.0.1 - - [20/Aug/2025 19:51:14] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:51:18,703 [INFO] 127.0.0.1 - - [20/Aug/2025 19:51:18] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:52:48,465 [INFO] 127.0.0.1 - - [20/Aug/2025 19:52:48] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-08-20 19:52:55,121 [INFO] 127.0.0.1 - - [20/Aug/2025 19:52:55] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-08-20 19:53:11,994 [INFO] 127.0.0.1 - - [20/Aug/2025 19:53:11] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 19:53:14,585 [INFO] 127.0.0.1 - - [20/Aug/2025 19:53:14] "[31m[1mPOST /verify_face HTTP/1.1[0m" 400 -
+2025-08-20 20:10:15,168 [INFO] 127.0.0.1 - - [20/Aug/2025 20:10:15] "POST /verify_face HTTP/1.1" 200 -
+2025-08-20 20:11:58,940 [INFO]  * Detected change in 'C:\\Users\\yogip\\Documents\\c54\\face_recognition_penatahan\\face_api\\app.py', reloading
+2025-08-20 20:11:59,051 [INFO]  * Restarting with stat
+2025-08-21 11:13:28,919 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5500
+2025-08-21 11:13:28,920 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-21 11:13:28,926 [INFO]  * Restarting with stat
+2025-08-21 11:13:32,878 [WARNING]  * Debugger is active!
+2025-08-21 11:13:32,896 [INFO]  * Debugger PIN: 980-616-995
+2025-08-21 11:14:34,577 [INFO] ✔️ Gambar berhasil dibuka.
+2025-08-21 11:14:34,579 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-08-21 11:14:37,632 [INFO] ✅ Face encoding berhasil diambil.
+2025-08-21 11:14:37,636 [INFO] ✔️ Gambar berhasil dibuka.
+2025-08-21 11:14:37,638 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-08-21 11:14:39,438 [INFO] ✅ Face encoding berhasil diambil.
+2025-08-21 11:14:39,454 [INFO] 127.0.0.1 - - [21/Aug/2025 11:14:39] "POST /register_face HTTP/1.1" 200 -
+2025-08-21 11:19:49,557 [INFO] ✔️ Gambar berhasil dibuka.
+2025-08-21 11:19:49,557 [INFO] Tipe gambar: RGB, Ukuran: (640, 480)
+2025-08-21 11:19:52,600 [INFO] ✅ Face encoding berhasil diambil.
+2025-08-21 11:19:52,621 [INFO] 127.0.0.1 - - [21/Aug/2025 11:19:52] "POST /register_face HTTP/1.1" 200 -
+2025-08-26 11:56:13,381 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5500
+2025-08-26 11:56:13,382 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-26 11:56:13,388 [INFO]  * Restarting with stat
+2025-08-26 11:56:18,961 [WARNING]  * Debugger is active!
+2025-08-26 11:56:18,974 [INFO]  * Debugger PIN: 980-616-995
+2025-08-26 12:27:21,486 [INFO] 127.0.0.1 - - [26/Aug/2025 12:27:21] "POST /verify_face HTTP/1.1" 200 -
+2025-08-26 12:27:26,719 [INFO] 127.0.0.1 - - [26/Aug/2025 12:27:26] "POST /verify_face HTTP/1.1" 200 -
+2025-08-26 12:27:30,916 [INFO] 127.0.0.1 - - [26/Aug/2025 12:27:30] "POST /verify_face HTTP/1.1" 200 -
+2025-08-26 12:27:34,376 [INFO] 127.0.0.1 - - [26/Aug/2025 12:27:34] "POST /verify_face HTTP/1.1" 200 -
+2025-08-26 12:28:23,948 [INFO] 127.0.0.1 - - [26/Aug/2025 12:28:23] "POST /verify_face HTTP/1.1" 200 -
+2025-08-26 12:28:29,213 [INFO] 127.0.0.1 - - [26/Aug/2025 12:28:29] "POST /verify_face HTTP/1.1" 200 -
