@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::put('/update/{id}', 'update')->name('update');
+            Route::put('/update-password/{id}', 'updatePassword')->name('updatePassword');
             Route::put('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
             Route::delete('/delete/{id}', 'destroy')->name('destroy');
             Route::get('/restore', 'showRestore')->name('showRestore');

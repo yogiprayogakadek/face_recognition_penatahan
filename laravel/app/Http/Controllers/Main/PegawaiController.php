@@ -202,4 +202,33 @@ class PegawaiController extends Controller
             ], 500);
         }
     }
+
+    public function updatePassword(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'newPassword' => 'required|string|min:8',
+                'confirmPassword' => 'required|same:newPassword',
+            ], [
+                'newPassword.required' => 'Password baru wajib diisi.',
+                'newPassword.min' => 'Password baru minimal 8 karakter.',
+                'confirmPassword.required' => 'Konfirmasi password wajib diisi.',
+                'confirmPassword.same' => 'Konfirmasi password harus sama dengan password baru.',
+            ]);
+
+            $user = User::findOrFail($id);
+            $user->password = Hash::make($request->newPassword);
+            $user->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password ' . $user->nama . ' berhasil diganti.'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Password gagal diganti: ' . $th->getMessage()
+            ], 500);
+        }
+    }
 }

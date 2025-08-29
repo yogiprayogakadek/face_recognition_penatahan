@@ -28,7 +28,7 @@
     </script>
 @endif
 
-@if (!auth()->user()->pegawai->faceEncoding)
+{{-- @if (!auth()->user()->pegawai->faceEncoding)
     <script>
         const currentPath = window.location.pathname;
         const id = '{{ auth()->user()->pegawai->id }}';
@@ -53,7 +53,7 @@
             });
         }
     </script>
-@endif
+@endif --}}
 
 
 <script>

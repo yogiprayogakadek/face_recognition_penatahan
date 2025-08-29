@@ -20,6 +20,28 @@
         </div>
     @endif
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalPassword" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ganti Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Body
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start"
+                        data-bs-dismiss="modal">Batal</button>
+                    <button type="button"
+                        class="btn bg-primary-subtle text-primary waves-effect text-start btn-password">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">Daftar Pegawai</h5>
@@ -100,6 +122,14 @@
                                             height="1em"></iconify-icon>
                                     </button>
 
+                                    <button type="button" class="btn bg-info-subtle btn-change-password"
+                                        data-id="{{ $data->id }}" data-nama="{{ $data->nama }}"
+                                        data-url="{{ route('pegawai.updatePassword', $data->id) }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ganti Password">
+                                        <iconify-icon icon="solar:lock-password-bold-duotone" width="1em"
+                                            height="1em"></iconify-icon>
+                                    </button>
+
 
                                 </td>
                             </tr>
@@ -131,6 +161,77 @@
                     new bootstrap.Tooltip(el);
                 });
             }
+        });
+
+        $('body').on('click', '.btn-change-password', function() {
+            let modal = $('#modalPassword')
+            let url = $(this).data('url');
+            let nama = $(this).data('nama');
+            let id = $(this).data('id');
+            let modalBody = `
+                <form id="formChangePassword">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Password Baru</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </form>
+            `;
+            modal.find('.modal-body').html(modalBody);
+            modal.find('.modal-title').text('Ganti Password - ' + nama)
+            modal.find('.modal-footer .btn-password').off('click').on('click', function() {
+                let newPassword = modal.find('#newPassword').val();
+                let confirmPassword = modal.find('#confirmPassword').val();
+
+                if (!newPassword) {
+                    Swal.fire('Error', 'Password baru tidak boleh kosong.', 'error');
+                    return;
+                }
+
+                if (newPassword.length < 8) {
+                    Swal.fire('Error', 'Password baru minimal 8 karakter.', 'error');
+                    return;
+                }
+
+                if (!confirmPassword) {
+                    Swal.fire('Error', 'Konfirmasi password tidak boleh kosong.', 'error');
+                    return;
+                }
+
+                if (newPassword !== confirmPassword) {
+                    Swal.fire('Error', 'Password tidak cocok.', 'error');
+                    return;
+                }
+
+
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        newPassword: newPassword,
+                        confirmPassword: confirmPassword,
+                    },
+                    success: function(response) {
+                        Swal.fire('Berhasil', response.message, 'success');
+                        modal.modal('hide');
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'Terjadi kesalahan pada server.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        Swal.fire('Gagal', errorMessage, 'error');
+                    }
+                });
+            });
+            modal.modal('show');
+
         });
 
 
